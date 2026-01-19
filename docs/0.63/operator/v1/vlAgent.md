@@ -1,0 +1,3003 @@
+---
+permalink: /0.63/operator/v1/vlAgent/
+---
+
+# operator.v1.vlAgent
+
+"VLAgent - is a tiny but brave agent, which helps you collect logs from various sources and stores them in VictoriaLogs."
+
+## Index
+
+* [`fn new(name)`](#fn-new)
+* [`obj metadata`](#obj-metadata)
+  * [`fn withAnnotations(annotations)`](#fn-metadatawithannotations)
+  * [`fn withAnnotationsMixin(annotations)`](#fn-metadatawithannotationsmixin)
+  * [`fn withClusterName(clusterName)`](#fn-metadatawithclustername)
+  * [`fn withCreationTimestamp(creationTimestamp)`](#fn-metadatawithcreationtimestamp)
+  * [`fn withDeletionGracePeriodSeconds(deletionGracePeriodSeconds)`](#fn-metadatawithdeletiongraceperiodseconds)
+  * [`fn withDeletionTimestamp(deletionTimestamp)`](#fn-metadatawithdeletiontimestamp)
+  * [`fn withFinalizers(finalizers)`](#fn-metadatawithfinalizers)
+  * [`fn withFinalizersMixin(finalizers)`](#fn-metadatawithfinalizersmixin)
+  * [`fn withGenerateName(generateName)`](#fn-metadatawithgeneratename)
+  * [`fn withGeneration(generation)`](#fn-metadatawithgeneration)
+  * [`fn withLabels(labels)`](#fn-metadatawithlabels)
+  * [`fn withLabelsMixin(labels)`](#fn-metadatawithlabelsmixin)
+  * [`fn withName(name)`](#fn-metadatawithname)
+  * [`fn withNamespace(namespace)`](#fn-metadatawithnamespace)
+  * [`fn withOwnerReferences(ownerReferences)`](#fn-metadatawithownerreferences)
+  * [`fn withOwnerReferencesMixin(ownerReferences)`](#fn-metadatawithownerreferencesmixin)
+  * [`fn withResourceVersion(resourceVersion)`](#fn-metadatawithresourceversion)
+  * [`fn withSelfLink(selfLink)`](#fn-metadatawithselflink)
+  * [`fn withUid(uid)`](#fn-metadatawithuid)
+* [`obj spec`](#obj-spec)
+  * [`fn withAffinity(affinity)`](#fn-specwithaffinity)
+  * [`fn withAffinityMixin(affinity)`](#fn-specwithaffinitymixin)
+  * [`fn withClaimTemplates(claimTemplates)`](#fn-specwithclaimtemplates)
+  * [`fn withClaimTemplatesMixin(claimTemplates)`](#fn-specwithclaimtemplatesmixin)
+  * [`fn withConfigMaps(configMaps)`](#fn-specwithconfigmaps)
+  * [`fn withConfigMapsMixin(configMaps)`](#fn-specwithconfigmapsmixin)
+  * [`fn withContainers(containers)`](#fn-specwithcontainers)
+  * [`fn withContainersMixin(containers)`](#fn-specwithcontainersmixin)
+  * [`fn withDisableAutomountServiceAccountToken(disableAutomountServiceAccountToken)`](#fn-specwithdisableautomountserviceaccounttoken)
+  * [`fn withDisableSelfServiceScrape(disableSelfServiceScrape)`](#fn-specwithdisableselfservicescrape)
+  * [`fn withDnsPolicy(dnsPolicy)`](#fn-specwithdnspolicy)
+  * [`fn withExtraArgs(extraArgs)`](#fn-specwithextraargs)
+  * [`fn withExtraArgsMixin(extraArgs)`](#fn-specwithextraargsmixin)
+  * [`fn withExtraEnvs(extraEnvs)`](#fn-specwithextraenvs)
+  * [`fn withExtraEnvsFrom(extraEnvsFrom)`](#fn-specwithextraenvsfrom)
+  * [`fn withExtraEnvsFromMixin(extraEnvsFrom)`](#fn-specwithextraenvsfrommixin)
+  * [`fn withExtraEnvsMixin(extraEnvs)`](#fn-specwithextraenvsmixin)
+  * [`fn withHostAliases(hostAliases)`](#fn-specwithhostaliases)
+  * [`fn withHostAliasesMixin(hostAliases)`](#fn-specwithhostaliasesmixin)
+  * [`fn withHostNetwork(hostNetwork)`](#fn-specwithhostnetwork)
+  * [`fn withHost_aliases(host_aliases)`](#fn-specwithhost_aliases)
+  * [`fn withHost_aliasesMixin(host_aliases)`](#fn-specwithhost_aliasesmixin)
+  * [`fn withImagePullSecrets(imagePullSecrets)`](#fn-specwithimagepullsecrets)
+  * [`fn withImagePullSecretsMixin(imagePullSecrets)`](#fn-specwithimagepullsecretsmixin)
+  * [`fn withInitContainers(initContainers)`](#fn-specwithinitcontainers)
+  * [`fn withInitContainersMixin(initContainers)`](#fn-specwithinitcontainersmixin)
+  * [`fn withLivenessProbe(livenessProbe)`](#fn-specwithlivenessprobe)
+  * [`fn withLivenessProbeMixin(livenessProbe)`](#fn-specwithlivenessprobemixin)
+  * [`fn withLogFormat(logFormat)`](#fn-specwithlogformat)
+  * [`fn withLogLevel(logLevel)`](#fn-specwithloglevel)
+  * [`fn withMinReadySeconds(minReadySeconds)`](#fn-specwithminreadyseconds)
+  * [`fn withNodeSelector(nodeSelector)`](#fn-specwithnodeselector)
+  * [`fn withNodeSelectorMixin(nodeSelector)`](#fn-specwithnodeselectormixin)
+  * [`fn withPaused(paused)`](#fn-specwithpaused)
+  * [`fn withPort(port)`](#fn-specwithport)
+  * [`fn withPriorityClassName(priorityClassName)`](#fn-specwithpriorityclassname)
+  * [`fn withReadinessGates(readinessGates)`](#fn-specwithreadinessgates)
+  * [`fn withReadinessGatesMixin(readinessGates)`](#fn-specwithreadinessgatesmixin)
+  * [`fn withReadinessProbe(readinessProbe)`](#fn-specwithreadinessprobe)
+  * [`fn withReadinessProbeMixin(readinessProbe)`](#fn-specwithreadinessprobemixin)
+  * [`fn withRemoteWrite(remoteWrite)`](#fn-specwithremotewrite)
+  * [`fn withRemoteWriteMixin(remoteWrite)`](#fn-specwithremotewritemixin)
+  * [`fn withReplicaCount(replicaCount)`](#fn-specwithreplicacount)
+  * [`fn withRevisionHistoryLimitCount(revisionHistoryLimitCount)`](#fn-specwithrevisionhistorylimitcount)
+  * [`fn withRollingUpdateStrategy(rollingUpdateStrategy)`](#fn-specwithrollingupdatestrategy)
+  * [`fn withRuntimeClassName(runtimeClassName)`](#fn-specwithruntimeclassname)
+  * [`fn withSchedulerName(schedulerName)`](#fn-specwithschedulername)
+  * [`fn withSecrets(secrets)`](#fn-specwithsecrets)
+  * [`fn withSecretsMixin(secrets)`](#fn-specwithsecretsmixin)
+  * [`fn withSecurityContext(securityContext)`](#fn-specwithsecuritycontext)
+  * [`fn withSecurityContextMixin(securityContext)`](#fn-specwithsecuritycontextmixin)
+  * [`fn withServiceAccountName(serviceAccountName)`](#fn-specwithserviceaccountname)
+  * [`fn withServiceScrapeSpec(serviceScrapeSpec)`](#fn-specwithservicescrapespec)
+  * [`fn withServiceScrapeSpecMixin(serviceScrapeSpec)`](#fn-specwithservicescrapespecmixin)
+  * [`fn withStartupProbe(startupProbe)`](#fn-specwithstartupprobe)
+  * [`fn withStartupProbeMixin(startupProbe)`](#fn-specwithstartupprobemixin)
+  * [`fn withTerminationGracePeriodSeconds(terminationGracePeriodSeconds)`](#fn-specwithterminationgraceperiodseconds)
+  * [`fn withTolerations(tolerations)`](#fn-specwithtolerations)
+  * [`fn withTolerationsMixin(tolerations)`](#fn-specwithtolerationsmixin)
+  * [`fn withTopologySpreadConstraints(topologySpreadConstraints)`](#fn-specwithtopologyspreadconstraints)
+  * [`fn withTopologySpreadConstraintsMixin(topologySpreadConstraints)`](#fn-specwithtopologyspreadconstraintsmixin)
+  * [`fn withUseDefaultResources(useDefaultResources)`](#fn-specwithusedefaultresources)
+  * [`fn withUseStrictSecurity(useStrictSecurity)`](#fn-specwithusestrictsecurity)
+  * [`fn withVolumeMounts(volumeMounts)`](#fn-specwithvolumemounts)
+  * [`fn withVolumeMountsMixin(volumeMounts)`](#fn-specwithvolumemountsmixin)
+  * [`fn withVolumes(volumes)`](#fn-specwithvolumes)
+  * [`fn withVolumesMixin(volumes)`](#fn-specwithvolumesmixin)
+  * [`obj spec.claimTemplates`](#obj-specclaimtemplates)
+    * [`fn withApiVersion(apiVersion)`](#fn-specclaimtemplateswithapiversion)
+    * [`fn withKind(kind)`](#fn-specclaimtemplateswithkind)
+    * [`fn withMetadata(metadata)`](#fn-specclaimtemplateswithmetadata)
+    * [`fn withMetadataMixin(metadata)`](#fn-specclaimtemplateswithmetadatamixin)
+    * [`obj spec.claimTemplates.spec`](#obj-specclaimtemplatesspec)
+      * [`fn withAccessModes(accessModes)`](#fn-specclaimtemplatesspecwithaccessmodes)
+      * [`fn withAccessModesMixin(accessModes)`](#fn-specclaimtemplatesspecwithaccessmodesmixin)
+      * [`fn withStorageClassName(storageClassName)`](#fn-specclaimtemplatesspecwithstorageclassname)
+      * [`fn withVolumeAttributesClassName(volumeAttributesClassName)`](#fn-specclaimtemplatesspecwithvolumeattributesclassname)
+      * [`fn withVolumeMode(volumeMode)`](#fn-specclaimtemplatesspecwithvolumemode)
+      * [`fn withVolumeName(volumeName)`](#fn-specclaimtemplatesspecwithvolumename)
+      * [`obj spec.claimTemplates.spec.dataSource`](#obj-specclaimtemplatesspecdatasource)
+        * [`fn withApiGroup(apiGroup)`](#fn-specclaimtemplatesspecdatasourcewithapigroup)
+        * [`fn withKind(kind)`](#fn-specclaimtemplatesspecdatasourcewithkind)
+        * [`fn withName(name)`](#fn-specclaimtemplatesspecdatasourcewithname)
+      * [`obj spec.claimTemplates.spec.dataSourceRef`](#obj-specclaimtemplatesspecdatasourceref)
+        * [`fn withApiGroup(apiGroup)`](#fn-specclaimtemplatesspecdatasourcerefwithapigroup)
+        * [`fn withKind(kind)`](#fn-specclaimtemplatesspecdatasourcerefwithkind)
+        * [`fn withName(name)`](#fn-specclaimtemplatesspecdatasourcerefwithname)
+        * [`fn withNamespace(namespace)`](#fn-specclaimtemplatesspecdatasourcerefwithnamespace)
+      * [`obj spec.claimTemplates.spec.resources`](#obj-specclaimtemplatesspecresources)
+        * [`fn withLimits(limits)`](#fn-specclaimtemplatesspecresourceswithlimits)
+        * [`fn withLimitsMixin(limits)`](#fn-specclaimtemplatesspecresourceswithlimitsmixin)
+        * [`fn withRequests(requests)`](#fn-specclaimtemplatesspecresourceswithrequests)
+        * [`fn withRequestsMixin(requests)`](#fn-specclaimtemplatesspecresourceswithrequestsmixin)
+      * [`obj spec.claimTemplates.spec.selector`](#obj-specclaimtemplatesspecselector)
+        * [`fn withMatchExpressions(matchExpressions)`](#fn-specclaimtemplatesspecselectorwithmatchexpressions)
+        * [`fn withMatchExpressionsMixin(matchExpressions)`](#fn-specclaimtemplatesspecselectorwithmatchexpressionsmixin)
+        * [`fn withMatchLabels(matchLabels)`](#fn-specclaimtemplatesspecselectorwithmatchlabels)
+        * [`fn withMatchLabelsMixin(matchLabels)`](#fn-specclaimtemplatesspecselectorwithmatchlabelsmixin)
+        * [`obj spec.claimTemplates.spec.selector.matchExpressions`](#obj-specclaimtemplatesspecselectormatchexpressions)
+          * [`fn withKey(key)`](#fn-specclaimtemplatesspecselectormatchexpressionswithkey)
+          * [`fn withOperator(operator)`](#fn-specclaimtemplatesspecselectormatchexpressionswithoperator)
+          * [`fn withValues(values)`](#fn-specclaimtemplatesspecselectormatchexpressionswithvalues)
+          * [`fn withValuesMixin(values)`](#fn-specclaimtemplatesspecselectormatchexpressionswithvaluesmixin)
+  * [`obj spec.dnsConfig`](#obj-specdnsconfig)
+    * [`fn withNameservers(nameservers)`](#fn-specdnsconfigwithnameservers)
+    * [`fn withNameserversMixin(nameservers)`](#fn-specdnsconfigwithnameserversmixin)
+    * [`fn withOptions(options)`](#fn-specdnsconfigwithoptions)
+    * [`fn withOptionsMixin(options)`](#fn-specdnsconfigwithoptionsmixin)
+    * [`fn withSearches(searches)`](#fn-specdnsconfigwithsearches)
+    * [`fn withSearchesMixin(searches)`](#fn-specdnsconfigwithsearchesmixin)
+    * [`obj spec.dnsConfig.options`](#obj-specdnsconfigoptions)
+      * [`fn withName(name)`](#fn-specdnsconfigoptionswithname)
+      * [`fn withValue(value)`](#fn-specdnsconfigoptionswithvalue)
+  * [`obj spec.extraEnvs`](#obj-specextraenvs)
+    * [`fn withName(name)`](#fn-specextraenvswithname)
+    * [`fn withValue(value)`](#fn-specextraenvswithvalue)
+  * [`obj spec.extraEnvsFrom`](#obj-specextraenvsfrom)
+    * [`fn withPrefix(prefix)`](#fn-specextraenvsfromwithprefix)
+    * [`obj spec.extraEnvsFrom.configMapRef`](#obj-specextraenvsfromconfigmapref)
+      * [`fn withName(name)`](#fn-specextraenvsfromconfigmaprefwithname)
+      * [`fn withOptional(optional)`](#fn-specextraenvsfromconfigmaprefwithoptional)
+    * [`obj spec.extraEnvsFrom.secretRef`](#obj-specextraenvsfromsecretref)
+      * [`fn withName(name)`](#fn-specextraenvsfromsecretrefwithname)
+      * [`fn withOptional(optional)`](#fn-specextraenvsfromsecretrefwithoptional)
+  * [`obj spec.hostAliases`](#obj-spechostaliases)
+    * [`fn withHostnames(hostnames)`](#fn-spechostaliaseswithhostnames)
+    * [`fn withHostnamesMixin(hostnames)`](#fn-spechostaliaseswithhostnamesmixin)
+    * [`fn withIp(ip)`](#fn-spechostaliaseswithip)
+  * [`obj spec.host_aliases`](#obj-spechost_aliases)
+    * [`fn withHostnames(hostnames)`](#fn-spechost_aliaseswithhostnames)
+    * [`fn withHostnamesMixin(hostnames)`](#fn-spechost_aliaseswithhostnamesmixin)
+    * [`fn withIp(ip)`](#fn-spechost_aliaseswithip)
+  * [`obj spec.image`](#obj-specimage)
+    * [`fn withPullPolicy(pullPolicy)`](#fn-specimagewithpullpolicy)
+    * [`fn withRepository(repository)`](#fn-specimagewithrepository)
+    * [`fn withTag(tag)`](#fn-specimagewithtag)
+  * [`obj spec.imagePullSecrets`](#obj-specimagepullsecrets)
+    * [`fn withName(name)`](#fn-specimagepullsecretswithname)
+  * [`obj spec.managedMetadata`](#obj-specmanagedmetadata)
+    * [`fn withAnnotations(annotations)`](#fn-specmanagedmetadatawithannotations)
+    * [`fn withAnnotationsMixin(annotations)`](#fn-specmanagedmetadatawithannotationsmixin)
+    * [`fn withLabels(labels)`](#fn-specmanagedmetadatawithlabels)
+    * [`fn withLabelsMixin(labels)`](#fn-specmanagedmetadatawithlabelsmixin)
+  * [`obj spec.persistentVolumeClaimRetentionPolicy`](#obj-specpersistentvolumeclaimretentionpolicy)
+    * [`fn withWhenDeleted(whenDeleted)`](#fn-specpersistentvolumeclaimretentionpolicywithwhendeleted)
+    * [`fn withWhenScaled(whenScaled)`](#fn-specpersistentvolumeclaimretentionpolicywithwhenscaled)
+  * [`obj spec.podDisruptionBudget`](#obj-specpoddisruptionbudget)
+    * [`fn withMaxUnavailable(maxUnavailable)`](#fn-specpoddisruptionbudgetwithmaxunavailable)
+    * [`fn withMinAvailable(minAvailable)`](#fn-specpoddisruptionbudgetwithminavailable)
+    * [`fn withSelectorLabels(selectorLabels)`](#fn-specpoddisruptionbudgetwithselectorlabels)
+    * [`fn withSelectorLabelsMixin(selectorLabels)`](#fn-specpoddisruptionbudgetwithselectorlabelsmixin)
+  * [`obj spec.podMetadata`](#obj-specpodmetadata)
+    * [`fn withAnnotations(annotations)`](#fn-specpodmetadatawithannotations)
+    * [`fn withAnnotationsMixin(annotations)`](#fn-specpodmetadatawithannotationsmixin)
+    * [`fn withLabels(labels)`](#fn-specpodmetadatawithlabels)
+    * [`fn withLabelsMixin(labels)`](#fn-specpodmetadatawithlabelsmixin)
+    * [`fn withName(name)`](#fn-specpodmetadatawithname)
+  * [`obj spec.readinessGates`](#obj-specreadinessgates)
+    * [`fn withConditionType(conditionType)`](#fn-specreadinessgateswithconditiontype)
+  * [`obj spec.remoteWrite`](#obj-specremotewrite)
+    * [`fn withBearerTokenPath(bearerTokenPath)`](#fn-specremotewritewithbearertokenpath)
+    * [`fn withHeaders(headers)`](#fn-specremotewritewithheaders)
+    * [`fn withHeadersMixin(headers)`](#fn-specremotewritewithheadersmixin)
+    * [`fn withMaxDiskUsage(maxDiskUsage)`](#fn-specremotewritewithmaxdiskusage)
+    * [`fn withProxyURL(proxyURL)`](#fn-specremotewritewithproxyurl)
+    * [`fn withSendTimeout(sendTimeout)`](#fn-specremotewritewithsendtimeout)
+    * [`fn withUrl(url)`](#fn-specremotewritewithurl)
+    * [`obj spec.remoteWrite.bearerTokenSecret`](#obj-specremotewritebearertokensecret)
+      * [`fn withKey(key)`](#fn-specremotewritebearertokensecretwithkey)
+      * [`fn withName(name)`](#fn-specremotewritebearertokensecretwithname)
+      * [`fn withOptional(optional)`](#fn-specremotewritebearertokensecretwithoptional)
+    * [`obj spec.remoteWrite.oauth2`](#obj-specremotewriteoauth2)
+      * [`fn withClientIDFile(clientIDFile)`](#fn-specremotewriteoauth2withclientidfile)
+      * [`fn withClientSecretFile(clientSecretFile)`](#fn-specremotewriteoauth2withclientsecretfile)
+      * [`fn withEndpointParams(endpointParams)`](#fn-specremotewriteoauth2withendpointparams)
+      * [`fn withEndpointParamsMixin(endpointParams)`](#fn-specremotewriteoauth2withendpointparamsmixin)
+      * [`fn withScopes(scopes)`](#fn-specremotewriteoauth2withscopes)
+      * [`fn withScopesMixin(scopes)`](#fn-specremotewriteoauth2withscopesmixin)
+      * [`fn withTokenURL(tokenURL)`](#fn-specremotewriteoauth2withtokenurl)
+      * [`obj spec.remoteWrite.oauth2.clientIDSecret`](#obj-specremotewriteoauth2clientidsecret)
+        * [`fn withKey(key)`](#fn-specremotewriteoauth2clientidsecretwithkey)
+        * [`fn withName(name)`](#fn-specremotewriteoauth2clientidsecretwithname)
+        * [`fn withOptional(optional)`](#fn-specremotewriteoauth2clientidsecretwithoptional)
+      * [`obj spec.remoteWrite.oauth2.clientSecret`](#obj-specremotewriteoauth2clientsecret)
+        * [`fn withKey(key)`](#fn-specremotewriteoauth2clientsecretwithkey)
+        * [`fn withName(name)`](#fn-specremotewriteoauth2clientsecretwithname)
+        * [`fn withOptional(optional)`](#fn-specremotewriteoauth2clientsecretwithoptional)
+    * [`obj spec.remoteWrite.tlsConfig`](#obj-specremotewritetlsconfig)
+      * [`fn withCaFile(caFile)`](#fn-specremotewritetlsconfigwithcafile)
+      * [`fn withCertFile(certFile)`](#fn-specremotewritetlsconfigwithcertfile)
+      * [`fn withInsecureSkipVerify(insecureSkipVerify)`](#fn-specremotewritetlsconfigwithinsecureskipverify)
+      * [`fn withKeyFile(keyFile)`](#fn-specremotewritetlsconfigwithkeyfile)
+      * [`fn withServerName(serverName)`](#fn-specremotewritetlsconfigwithservername)
+      * [`obj spec.remoteWrite.tlsConfig.caSecretKeyRef`](#obj-specremotewritetlsconfigcasecretkeyref)
+        * [`fn withKey(key)`](#fn-specremotewritetlsconfigcasecretkeyrefwithkey)
+        * [`fn withName(name)`](#fn-specremotewritetlsconfigcasecretkeyrefwithname)
+        * [`fn withOptional(optional)`](#fn-specremotewritetlsconfigcasecretkeyrefwithoptional)
+      * [`obj spec.remoteWrite.tlsConfig.certSecretKeyRef`](#obj-specremotewritetlsconfigcertsecretkeyref)
+        * [`fn withKey(key)`](#fn-specremotewritetlsconfigcertsecretkeyrefwithkey)
+        * [`fn withName(name)`](#fn-specremotewritetlsconfigcertsecretkeyrefwithname)
+        * [`fn withOptional(optional)`](#fn-specremotewritetlsconfigcertsecretkeyrefwithoptional)
+      * [`obj spec.remoteWrite.tlsConfig.keySecretKeyRef`](#obj-specremotewritetlsconfigkeysecretkeyref)
+        * [`fn withKey(key)`](#fn-specremotewritetlsconfigkeysecretkeyrefwithkey)
+        * [`fn withName(name)`](#fn-specremotewritetlsconfigkeysecretkeyrefwithname)
+        * [`fn withOptional(optional)`](#fn-specremotewritetlsconfigkeysecretkeyrefwithoptional)
+  * [`obj spec.remoteWriteSettings`](#obj-specremotewritesettings)
+    * [`fn withFlushInterval(flushInterval)`](#fn-specremotewritesettingswithflushinterval)
+    * [`fn withMaxBlockSize(maxBlockSize)`](#fn-specremotewritesettingswithmaxblocksize)
+    * [`fn withMaxDiskUsagePerURL(maxDiskUsagePerURL)`](#fn-specremotewritesettingswithmaxdiskusageperurl)
+    * [`fn withQueues(queues)`](#fn-specremotewritesettingswithqueues)
+    * [`fn withShowURL(showURL)`](#fn-specremotewritesettingswithshowurl)
+    * [`fn withTmpDataPath(tmpDataPath)`](#fn-specremotewritesettingswithtmpdatapath)
+  * [`obj spec.resources`](#obj-specresources)
+    * [`fn withClaims(claims)`](#fn-specresourceswithclaims)
+    * [`fn withClaimsMixin(claims)`](#fn-specresourceswithclaimsmixin)
+    * [`fn withLimits(limits)`](#fn-specresourceswithlimits)
+    * [`fn withLimitsMixin(limits)`](#fn-specresourceswithlimitsmixin)
+    * [`fn withRequests(requests)`](#fn-specresourceswithrequests)
+    * [`fn withRequestsMixin(requests)`](#fn-specresourceswithrequestsmixin)
+    * [`obj spec.resources.claims`](#obj-specresourcesclaims)
+      * [`fn withName(name)`](#fn-specresourcesclaimswithname)
+      * [`fn withRequest(request)`](#fn-specresourcesclaimswithrequest)
+  * [`obj spec.serviceSpec`](#obj-specservicespec)
+    * [`fn withSpec(spec)`](#fn-specservicespecwithspec)
+    * [`fn withSpecMixin(spec)`](#fn-specservicespecwithspecmixin)
+    * [`fn withUseAsDefault(useAsDefault)`](#fn-specservicespecwithuseasdefault)
+    * [`obj spec.serviceSpec.metadata`](#obj-specservicespecmetadata)
+      * [`fn withAnnotations(annotations)`](#fn-specservicespecmetadatawithannotations)
+      * [`fn withAnnotationsMixin(annotations)`](#fn-specservicespecmetadatawithannotationsmixin)
+      * [`fn withLabels(labels)`](#fn-specservicespecmetadatawithlabels)
+      * [`fn withLabelsMixin(labels)`](#fn-specservicespecmetadatawithlabelsmixin)
+      * [`fn withName(name)`](#fn-specservicespecmetadatawithname)
+  * [`obj spec.storage`](#obj-specstorage)
+    * [`fn withDisableMountSubPath(disableMountSubPath)`](#fn-specstoragewithdisablemountsubpath)
+    * [`obj spec.storage.emptyDir`](#obj-specstorageemptydir)
+      * [`fn withMedium(medium)`](#fn-specstorageemptydirwithmedium)
+      * [`fn withSizeLimit(sizeLimit)`](#fn-specstorageemptydirwithsizelimit)
+    * [`obj spec.storage.volumeClaimTemplate`](#obj-specstoragevolumeclaimtemplate)
+      * [`fn withApiVersion(apiVersion)`](#fn-specstoragevolumeclaimtemplatewithapiversion)
+      * [`fn withKind(kind)`](#fn-specstoragevolumeclaimtemplatewithkind)
+      * [`obj spec.storage.volumeClaimTemplate.metadata`](#obj-specstoragevolumeclaimtemplatemetadata)
+        * [`fn withAnnotations(annotations)`](#fn-specstoragevolumeclaimtemplatemetadatawithannotations)
+        * [`fn withAnnotationsMixin(annotations)`](#fn-specstoragevolumeclaimtemplatemetadatawithannotationsmixin)
+        * [`fn withLabels(labels)`](#fn-specstoragevolumeclaimtemplatemetadatawithlabels)
+        * [`fn withLabelsMixin(labels)`](#fn-specstoragevolumeclaimtemplatemetadatawithlabelsmixin)
+        * [`fn withName(name)`](#fn-specstoragevolumeclaimtemplatemetadatawithname)
+      * [`obj spec.storage.volumeClaimTemplate.spec`](#obj-specstoragevolumeclaimtemplatespec)
+        * [`fn withAccessModes(accessModes)`](#fn-specstoragevolumeclaimtemplatespecwithaccessmodes)
+        * [`fn withAccessModesMixin(accessModes)`](#fn-specstoragevolumeclaimtemplatespecwithaccessmodesmixin)
+        * [`fn withStorageClassName(storageClassName)`](#fn-specstoragevolumeclaimtemplatespecwithstorageclassname)
+        * [`fn withVolumeAttributesClassName(volumeAttributesClassName)`](#fn-specstoragevolumeclaimtemplatespecwithvolumeattributesclassname)
+        * [`fn withVolumeMode(volumeMode)`](#fn-specstoragevolumeclaimtemplatespecwithvolumemode)
+        * [`fn withVolumeName(volumeName)`](#fn-specstoragevolumeclaimtemplatespecwithvolumename)
+        * [`obj spec.storage.volumeClaimTemplate.spec.dataSource`](#obj-specstoragevolumeclaimtemplatespecdatasource)
+          * [`fn withApiGroup(apiGroup)`](#fn-specstoragevolumeclaimtemplatespecdatasourcewithapigroup)
+          * [`fn withKind(kind)`](#fn-specstoragevolumeclaimtemplatespecdatasourcewithkind)
+          * [`fn withName(name)`](#fn-specstoragevolumeclaimtemplatespecdatasourcewithname)
+        * [`obj spec.storage.volumeClaimTemplate.spec.dataSourceRef`](#obj-specstoragevolumeclaimtemplatespecdatasourceref)
+          * [`fn withApiGroup(apiGroup)`](#fn-specstoragevolumeclaimtemplatespecdatasourcerefwithapigroup)
+          * [`fn withKind(kind)`](#fn-specstoragevolumeclaimtemplatespecdatasourcerefwithkind)
+          * [`fn withName(name)`](#fn-specstoragevolumeclaimtemplatespecdatasourcerefwithname)
+          * [`fn withNamespace(namespace)`](#fn-specstoragevolumeclaimtemplatespecdatasourcerefwithnamespace)
+        * [`obj spec.storage.volumeClaimTemplate.spec.resources`](#obj-specstoragevolumeclaimtemplatespecresources)
+          * [`fn withLimits(limits)`](#fn-specstoragevolumeclaimtemplatespecresourceswithlimits)
+          * [`fn withLimitsMixin(limits)`](#fn-specstoragevolumeclaimtemplatespecresourceswithlimitsmixin)
+          * [`fn withRequests(requests)`](#fn-specstoragevolumeclaimtemplatespecresourceswithrequests)
+          * [`fn withRequestsMixin(requests)`](#fn-specstoragevolumeclaimtemplatespecresourceswithrequestsmixin)
+        * [`obj spec.storage.volumeClaimTemplate.spec.selector`](#obj-specstoragevolumeclaimtemplatespecselector)
+          * [`fn withMatchExpressions(matchExpressions)`](#fn-specstoragevolumeclaimtemplatespecselectorwithmatchexpressions)
+          * [`fn withMatchExpressionsMixin(matchExpressions)`](#fn-specstoragevolumeclaimtemplatespecselectorwithmatchexpressionsmixin)
+          * [`fn withMatchLabels(matchLabels)`](#fn-specstoragevolumeclaimtemplatespecselectorwithmatchlabels)
+          * [`fn withMatchLabelsMixin(matchLabels)`](#fn-specstoragevolumeclaimtemplatespecselectorwithmatchlabelsmixin)
+          * [`obj spec.storage.volumeClaimTemplate.spec.selector.matchExpressions`](#obj-specstoragevolumeclaimtemplatespecselectormatchexpressions)
+            * [`fn withKey(key)`](#fn-specstoragevolumeclaimtemplatespecselectormatchexpressionswithkey)
+            * [`fn withOperator(operator)`](#fn-specstoragevolumeclaimtemplatespecselectormatchexpressionswithoperator)
+            * [`fn withValues(values)`](#fn-specstoragevolumeclaimtemplatespecselectormatchexpressionswithvalues)
+            * [`fn withValuesMixin(values)`](#fn-specstoragevolumeclaimtemplatespecselectormatchexpressionswithvaluesmixin)
+  * [`obj spec.syslogSpec`](#obj-specsyslogspec)
+    * [`fn withTcpListeners(tcpListeners)`](#fn-specsyslogspecwithtcplisteners)
+    * [`fn withTcpListenersMixin(tcpListeners)`](#fn-specsyslogspecwithtcplistenersmixin)
+    * [`fn withUdpListeners(udpListeners)`](#fn-specsyslogspecwithudplisteners)
+    * [`fn withUdpListenersMixin(udpListeners)`](#fn-specsyslogspecwithudplistenersmixin)
+    * [`obj spec.syslogSpec.tcpListeners`](#obj-specsyslogspectcplisteners)
+      * [`fn withCompressMethod(compressMethod)`](#fn-specsyslogspectcplistenerswithcompressmethod)
+      * [`fn withDecolorizeFields(decolorizeFields)`](#fn-specsyslogspectcplistenerswithdecolorizefields)
+      * [`fn withIgnoreFields(ignoreFields)`](#fn-specsyslogspectcplistenerswithignorefields)
+      * [`fn withListenPort(listenPort)`](#fn-specsyslogspectcplistenerswithlistenport)
+      * [`fn withStreamFields(streamFields)`](#fn-specsyslogspectcplistenerswithstreamfields)
+      * [`fn withTenantID(tenantID)`](#fn-specsyslogspectcplistenerswithtenantid)
+      * [`obj spec.syslogSpec.tcpListeners.tlsConfig`](#obj-specsyslogspectcplistenerstlsconfig)
+        * [`fn withCertFile(certFile)`](#fn-specsyslogspectcplistenerstlsconfigwithcertfile)
+        * [`fn withKeyFile(keyFile)`](#fn-specsyslogspectcplistenerstlsconfigwithkeyfile)
+        * [`obj spec.syslogSpec.tcpListeners.tlsConfig.certSecret`](#obj-specsyslogspectcplistenerstlsconfigcertsecret)
+          * [`fn withKey(key)`](#fn-specsyslogspectcplistenerstlsconfigcertsecretwithkey)
+          * [`fn withName(name)`](#fn-specsyslogspectcplistenerstlsconfigcertsecretwithname)
+          * [`fn withOptional(optional)`](#fn-specsyslogspectcplistenerstlsconfigcertsecretwithoptional)
+        * [`obj spec.syslogSpec.tcpListeners.tlsConfig.keySecret`](#obj-specsyslogspectcplistenerstlsconfigkeysecret)
+          * [`fn withKey(key)`](#fn-specsyslogspectcplistenerstlsconfigkeysecretwithkey)
+          * [`fn withName(name)`](#fn-specsyslogspectcplistenerstlsconfigkeysecretwithname)
+          * [`fn withOptional(optional)`](#fn-specsyslogspectcplistenerstlsconfigkeysecretwithoptional)
+    * [`obj spec.syslogSpec.udpListeners`](#obj-specsyslogspecudplisteners)
+      * [`fn withCompressMethod(compressMethod)`](#fn-specsyslogspecudplistenerswithcompressmethod)
+      * [`fn withDecolorizeFields(decolorizeFields)`](#fn-specsyslogspecudplistenerswithdecolorizefields)
+      * [`fn withIgnoreFields(ignoreFields)`](#fn-specsyslogspecudplistenerswithignorefields)
+      * [`fn withListenPort(listenPort)`](#fn-specsyslogspecudplistenerswithlistenport)
+      * [`fn withStreamFields(streamFields)`](#fn-specsyslogspecudplistenerswithstreamfields)
+      * [`fn withTenantID(tenantID)`](#fn-specsyslogspecudplistenerswithtenantid)
+  * [`obj spec.tolerations`](#obj-spectolerations)
+    * [`fn withEffect(effect)`](#fn-spectolerationswitheffect)
+    * [`fn withKey(key)`](#fn-spectolerationswithkey)
+    * [`fn withOperator(operator)`](#fn-spectolerationswithoperator)
+    * [`fn withTolerationSeconds(tolerationSeconds)`](#fn-spectolerationswithtolerationseconds)
+    * [`fn withValue(value)`](#fn-spectolerationswithvalue)
+  * [`obj spec.volumeMounts`](#obj-specvolumemounts)
+    * [`fn withMountPath(mountPath)`](#fn-specvolumemountswithmountpath)
+    * [`fn withMountPropagation(mountPropagation)`](#fn-specvolumemountswithmountpropagation)
+    * [`fn withName(name)`](#fn-specvolumemountswithname)
+    * [`fn withReadOnly(readOnly)`](#fn-specvolumemountswithreadonly)
+    * [`fn withRecursiveReadOnly(recursiveReadOnly)`](#fn-specvolumemountswithrecursivereadonly)
+    * [`fn withSubPath(subPath)`](#fn-specvolumemountswithsubpath)
+    * [`fn withSubPathExpr(subPathExpr)`](#fn-specvolumemountswithsubpathexpr)
+
+## Fields
+
+### fn new
+
+```ts
+new(name)
+```
+
+new returns an instance of VLAgent
+
+## obj metadata
+
+"ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create."
+
+### fn metadata.withAnnotations
+
+```ts
+withAnnotations(annotations)
+```
+
+"Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations"
+
+### fn metadata.withAnnotationsMixin
+
+```ts
+withAnnotationsMixin(annotations)
+```
+
+"Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations"
+
+**Note:** This function appends passed data to existing values
+
+### fn metadata.withClusterName
+
+```ts
+withClusterName(clusterName)
+```
+
+"The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now and apiserver is going to ignore it if set in create or update request."
+
+### fn metadata.withCreationTimestamp
+
+```ts
+withCreationTimestamp(creationTimestamp)
+```
+
+"Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers."
+
+### fn metadata.withDeletionGracePeriodSeconds
+
+```ts
+withDeletionGracePeriodSeconds(deletionGracePeriodSeconds)
+```
+
+"Number of seconds allowed for this object to gracefully terminate before it will be removed from the system. Only set when deletionTimestamp is also set. May only be shortened. Read-only."
+
+### fn metadata.withDeletionTimestamp
+
+```ts
+withDeletionTimestamp(deletionTimestamp)
+```
+
+"Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers."
+
+### fn metadata.withFinalizers
+
+```ts
+withFinalizers(finalizers)
+```
+
+"Must be empty before the object is deleted from the registry. Each entry is an identifier for the responsible component that will remove the entry from the list. If the deletionTimestamp of the object is non-nil, entries in this list can only be removed. Finalizers may be processed and removed in any order.  Order is NOT enforced because it introduces significant risk of stuck finalizers. finalizers is a shared field, any actor with permission can reorder it. If the finalizer list is processed in order, then this can lead to a situation in which the component responsible for the first finalizer in the list is waiting for a signal (field value, external system, or other) produced by a component responsible for a finalizer later in the list, resulting in a deadlock. Without enforced ordering finalizers are free to order amongst themselves and are not vulnerable to ordering changes in the list."
+
+### fn metadata.withFinalizersMixin
+
+```ts
+withFinalizersMixin(finalizers)
+```
+
+"Must be empty before the object is deleted from the registry. Each entry is an identifier for the responsible component that will remove the entry from the list. If the deletionTimestamp of the object is non-nil, entries in this list can only be removed. Finalizers may be processed and removed in any order.  Order is NOT enforced because it introduces significant risk of stuck finalizers. finalizers is a shared field, any actor with permission can reorder it. If the finalizer list is processed in order, then this can lead to a situation in which the component responsible for the first finalizer in the list is waiting for a signal (field value, external system, or other) produced by a component responsible for a finalizer later in the list, resulting in a deadlock. Without enforced ordering finalizers are free to order amongst themselves and are not vulnerable to ordering changes in the list."
+
+**Note:** This function appends passed data to existing values
+
+### fn metadata.withGenerateName
+
+```ts
+withGenerateName(generateName)
+```
+
+"GenerateName is an optional prefix, used by the server, to generate a unique name ONLY IF the Name field has not been provided. If this field is used, the name returned to the client will be different than the name passed. This value will also be combined with a unique suffix. The provided value has the same validation rules as the Name field, and may be truncated by the length of the suffix required to make the value unique on the server.\n\nIf this field is specified and the generated name exists, the server will NOT return a 409 - instead, it will either return 201 Created or 500 with Reason ServerTimeout indicating a unique name could not be found in the time allotted, and the client should retry (optionally after the time indicated in the Retry-After header).\n\nApplied only if Name is not specified. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#idempotency"
+
+### fn metadata.withGeneration
+
+```ts
+withGeneration(generation)
+```
+
+"A sequence number representing a specific generation of the desired state. Populated by the system. Read-only."
+
+### fn metadata.withLabels
+
+```ts
+withLabels(labels)
+```
+
+"Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels"
+
+### fn metadata.withLabelsMixin
+
+```ts
+withLabelsMixin(labels)
+```
+
+"Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels"
+
+**Note:** This function appends passed data to existing values
+
+### fn metadata.withName
+
+```ts
+withName(name)
+```
+
+"Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names"
+
+### fn metadata.withNamespace
+
+```ts
+withNamespace(namespace)
+```
+
+"Namespace defines the space within which each name must be unique. An empty namespace is equivalent to the \"default\" namespace, but \"default\" is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty.\n\nMust be a DNS_LABEL. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/namespaces"
+
+### fn metadata.withOwnerReferences
+
+```ts
+withOwnerReferences(ownerReferences)
+```
+
+"List of objects depended by this object. If ALL objects in the list have been deleted, this object will be garbage collected. If this object is managed by a controller, then an entry in this list will point to this controller, with the controller field set to true. There cannot be more than one managing controller."
+
+### fn metadata.withOwnerReferencesMixin
+
+```ts
+withOwnerReferencesMixin(ownerReferences)
+```
+
+"List of objects depended by this object. If ALL objects in the list have been deleted, this object will be garbage collected. If this object is managed by a controller, then an entry in this list will point to this controller, with the controller field set to true. There cannot be more than one managing controller."
+
+**Note:** This function appends passed data to existing values
+
+### fn metadata.withResourceVersion
+
+```ts
+withResourceVersion(resourceVersion)
+```
+
+"An opaque value that represents the internal version of this object that can be used by clients to determine when objects have changed. May be used for optimistic concurrency, change detection, and the watch operation on a resource or set of resources. Clients must treat these values as opaque and passed unmodified back to the server. They may only be valid for a particular resource or set of resources.\n\nPopulated by the system. Read-only. Value must be treated as opaque by clients and . More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency"
+
+### fn metadata.withSelfLink
+
+```ts
+withSelfLink(selfLink)
+```
+
+"SelfLink is a URL representing this object. Populated by the system. Read-only.\n\nDEPRECATED Kubernetes will stop propagating this field in 1.20 release and the field is planned to be removed in 1.21 release."
+
+### fn metadata.withUid
+
+```ts
+withUid(uid)
+```
+
+"UID is the unique in time and space value for this object. It is typically generated by the server on successful creation of a resource and is not allowed to change on PUT operations.\n\nPopulated by the system. Read-only. More info: http://kubernetes.io/docs/user-guide/identifiers#uids"
+
+## obj spec
+
+"VLAgentSpec defines the desired state of VLAgent"
+
+### fn spec.withAffinity
+
+```ts
+withAffinity(affinity)
+```
+
+"Affinity If specified, the pod's scheduling constraints."
+
+### fn spec.withAffinityMixin
+
+```ts
+withAffinityMixin(affinity)
+```
+
+"Affinity If specified, the pod's scheduling constraints."
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.withClaimTemplates
+
+```ts
+withClaimTemplates(claimTemplates)
+```
+
+"ClaimTemplates allows adding additional VolumeClaimTemplates for VLAgent in Mode: StatefulSet"
+
+### fn spec.withClaimTemplatesMixin
+
+```ts
+withClaimTemplatesMixin(claimTemplates)
+```
+
+"ClaimTemplates allows adding additional VolumeClaimTemplates for VLAgent in Mode: StatefulSet"
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.withConfigMaps
+
+```ts
+withConfigMaps(configMaps)
+```
+
+"ConfigMaps is a list of ConfigMaps in the same namespace as the Application\nobject, which shall be mounted into the Application container\nat /etc/vm/configs/CONFIGMAP_NAME folder"
+
+### fn spec.withConfigMapsMixin
+
+```ts
+withConfigMapsMixin(configMaps)
+```
+
+"ConfigMaps is a list of ConfigMaps in the same namespace as the Application\nobject, which shall be mounted into the Application container\nat /etc/vm/configs/CONFIGMAP_NAME folder"
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.withContainers
+
+```ts
+withContainers(containers)
+```
+
+"Containers property allows to inject additions sidecars or to patch existing containers.\nIt can be useful for proxies, backup, etc."
+
+### fn spec.withContainersMixin
+
+```ts
+withContainersMixin(containers)
+```
+
+"Containers property allows to inject additions sidecars or to patch existing containers.\nIt can be useful for proxies, backup, etc."
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.withDisableAutomountServiceAccountToken
+
+```ts
+withDisableAutomountServiceAccountToken(disableAutomountServiceAccountToken)
+```
+
+"DisableAutomountServiceAccountToken whether to disable serviceAccount auto mount by Kubernetes (available from v0.54.0).\nOperator will conditionally create volumes and volumeMounts for containers if it requires k8s API access.\nFor example, vmagent and vm-config-reloader requires k8s API access.\nOperator creates volumes with name: \"kube-api-access\", which can be used as volumeMount for extraContainers if needed.\nAnd also adds VolumeMounts at /var/run/secrets/kubernetes.io/serviceaccount."
+
+### fn spec.withDisableSelfServiceScrape
+
+```ts
+withDisableSelfServiceScrape(disableSelfServiceScrape)
+```
+
+"DisableSelfServiceScrape controls creation of VMServiceScrape by operator\nfor the application.\nHas priority over `VM_DISABLESELFSERVICESCRAPECREATION` operator env variable"
+
+### fn spec.withDnsPolicy
+
+```ts
+withDnsPolicy(dnsPolicy)
+```
+
+"DNSPolicy sets DNS policy for the pod"
+
+### fn spec.withExtraArgs
+
+```ts
+withExtraArgs(extraArgs)
+```
+
+"ExtraArgs that will be passed to the application container\nfor example remoteWrite.tmpDataPath: /tmp"
+
+### fn spec.withExtraArgsMixin
+
+```ts
+withExtraArgsMixin(extraArgs)
+```
+
+"ExtraArgs that will be passed to the application container\nfor example remoteWrite.tmpDataPath: /tmp"
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.withExtraEnvs
+
+```ts
+withExtraEnvs(extraEnvs)
+```
+
+"ExtraEnvs that will be passed to the application container"
+
+### fn spec.withExtraEnvsFrom
+
+```ts
+withExtraEnvsFrom(extraEnvsFrom)
+```
+
+"ExtraEnvsFrom defines source of env variables for the application container\ncould either be secret or configmap"
+
+### fn spec.withExtraEnvsFromMixin
+
+```ts
+withExtraEnvsFromMixin(extraEnvsFrom)
+```
+
+"ExtraEnvsFrom defines source of env variables for the application container\ncould either be secret or configmap"
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.withExtraEnvsMixin
+
+```ts
+withExtraEnvsMixin(extraEnvs)
+```
+
+"ExtraEnvs that will be passed to the application container"
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.withHostAliases
+
+```ts
+withHostAliases(hostAliases)
+```
+
+"HostAliases provides mapping for ip and hostname,\nthat would be propagated to pod,\ncannot be used with HostNetwork."
+
+### fn spec.withHostAliasesMixin
+
+```ts
+withHostAliasesMixin(hostAliases)
+```
+
+"HostAliases provides mapping for ip and hostname,\nthat would be propagated to pod,\ncannot be used with HostNetwork."
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.withHostNetwork
+
+```ts
+withHostNetwork(hostNetwork)
+```
+
+"HostNetwork controls whether the pod may use the node network namespace"
+
+### fn spec.withHost_aliases
+
+```ts
+withHost_aliases(host_aliases)
+```
+
+"HostAliasesUnderScore provides mapping for ip and hostname,\nthat would be propagated to pod,\ncannot be used with HostNetwork.\nHas Priority over hostAliases field"
+
+### fn spec.withHost_aliasesMixin
+
+```ts
+withHost_aliasesMixin(host_aliases)
+```
+
+"HostAliasesUnderScore provides mapping for ip and hostname,\nthat would be propagated to pod,\ncannot be used with HostNetwork.\nHas Priority over hostAliases field"
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.withImagePullSecrets
+
+```ts
+withImagePullSecrets(imagePullSecrets)
+```
+
+"ImagePullSecrets An optional list of references to secrets in the same namespace\nto use for pulling images from registries\nsee https://kubernetes.io/docs/concepts/containers/images/#referring-to-an-imagepullsecrets-on-a-pod"
+
+### fn spec.withImagePullSecretsMixin
+
+```ts
+withImagePullSecretsMixin(imagePullSecrets)
+```
+
+"ImagePullSecrets An optional list of references to secrets in the same namespace\nto use for pulling images from registries\nsee https://kubernetes.io/docs/concepts/containers/images/#referring-to-an-imagepullsecrets-on-a-pod"
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.withInitContainers
+
+```ts
+withInitContainers(initContainers)
+```
+
+"InitContainers allows adding initContainers to the pod definition.\nAny errors during the execution of an initContainer will lead to a restart of the Pod.\nMore info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/"
+
+### fn spec.withInitContainersMixin
+
+```ts
+withInitContainersMixin(initContainers)
+```
+
+"InitContainers allows adding initContainers to the pod definition.\nAny errors during the execution of an initContainer will lead to a restart of the Pod.\nMore info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/"
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.withLivenessProbe
+
+```ts
+withLivenessProbe(livenessProbe)
+```
+
+"LivenessProbe that will be added CRD pod"
+
+### fn spec.withLivenessProbeMixin
+
+```ts
+withLivenessProbeMixin(livenessProbe)
+```
+
+"LivenessProbe that will be added CRD pod"
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.withLogFormat
+
+```ts
+withLogFormat(logFormat)
+```
+
+"LogFormat for VLAgent to be configured with."
+
+### fn spec.withLogLevel
+
+```ts
+withLogLevel(logLevel)
+```
+
+"LogLevel for VLAgent to be configured with.\nINFO, WARN, ERROR, FATAL, PANIC"
+
+### fn spec.withMinReadySeconds
+
+```ts
+withMinReadySeconds(minReadySeconds)
+```
+
+"MinReadySeconds defines a minimum number of seconds to wait before starting update next pod\nif previous in healthy state\nHas no effect for VLogs and VMSingle"
+
+### fn spec.withNodeSelector
+
+```ts
+withNodeSelector(nodeSelector)
+```
+
+"NodeSelector Define which Nodes the Pods are scheduled on."
+
+### fn spec.withNodeSelectorMixin
+
+```ts
+withNodeSelectorMixin(nodeSelector)
+```
+
+"NodeSelector Define which Nodes the Pods are scheduled on."
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.withPaused
+
+```ts
+withPaused(paused)
+```
+
+"Paused If set to true all actions on the underlying managed objects are not\ngoing to be performed, except for delete actions."
+
+### fn spec.withPort
+
+```ts
+withPort(port)
+```
+
+"Port listen address"
+
+### fn spec.withPriorityClassName
+
+```ts
+withPriorityClassName(priorityClassName)
+```
+
+"PriorityClassName class assigned to the Pods"
+
+### fn spec.withReadinessGates
+
+```ts
+withReadinessGates(readinessGates)
+```
+
+"ReadinessGates defines pod readiness gates"
+
+### fn spec.withReadinessGatesMixin
+
+```ts
+withReadinessGatesMixin(readinessGates)
+```
+
+"ReadinessGates defines pod readiness gates"
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.withReadinessProbe
+
+```ts
+withReadinessProbe(readinessProbe)
+```
+
+"ReadinessProbe that will be added CRD pod"
+
+### fn spec.withReadinessProbeMixin
+
+```ts
+withReadinessProbeMixin(readinessProbe)
+```
+
+"ReadinessProbe that will be added CRD pod"
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.withRemoteWrite
+
+```ts
+withRemoteWrite(remoteWrite)
+```
+
+"RemoteWrite list of victoria logs endpoints\nfor victorialogs it must looks like: http://victoria-logs-single:9428/\nor for cluster different url\nhttps://docs.victoriametrics.com/victorialogs/vlagent/#replication-and-high-availability"
+
+### fn spec.withRemoteWriteMixin
+
+```ts
+withRemoteWriteMixin(remoteWrite)
+```
+
+"RemoteWrite list of victoria logs endpoints\nfor victorialogs it must looks like: http://victoria-logs-single:9428/\nor for cluster different url\nhttps://docs.victoriametrics.com/victorialogs/vlagent/#replication-and-high-availability"
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.withReplicaCount
+
+```ts
+withReplicaCount(replicaCount)
+```
+
+"ReplicaCount is the expected size of the Application."
+
+### fn spec.withRevisionHistoryLimitCount
+
+```ts
+withRevisionHistoryLimitCount(revisionHistoryLimitCount)
+```
+
+"The number of old ReplicaSets to retain to allow rollback in deployment or\nmaximum number of revisions that will be maintained in the Deployment revision history.\nHas no effect at StatefulSets\nDefaults to 10."
+
+### fn spec.withRollingUpdateStrategy
+
+```ts
+withRollingUpdateStrategy(rollingUpdateStrategy)
+```
+
+"StatefulRollingUpdateStrategy allows configuration for strategyType\nset it to RollingUpdate for disabling operator statefulSet rollingUpdate"
+
+### fn spec.withRuntimeClassName
+
+```ts
+withRuntimeClassName(runtimeClassName)
+```
+
+"RuntimeClassName - defines runtime class for kubernetes pod.\nhttps://kubernetes.io/docs/concepts/containers/runtime-class/"
+
+### fn spec.withSchedulerName
+
+```ts
+withSchedulerName(schedulerName)
+```
+
+"SchedulerName - defines kubernetes scheduler name"
+
+### fn spec.withSecrets
+
+```ts
+withSecrets(secrets)
+```
+
+"Secrets is a list of Secrets in the same namespace as the Application\nobject, which shall be mounted into the Application container\nat /etc/vm/secrets/SECRET_NAME folder"
+
+### fn spec.withSecretsMixin
+
+```ts
+withSecretsMixin(secrets)
+```
+
+"Secrets is a list of Secrets in the same namespace as the Application\nobject, which shall be mounted into the Application container\nat /etc/vm/secrets/SECRET_NAME folder"
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.withSecurityContext
+
+```ts
+withSecurityContext(securityContext)
+```
+
+"SecurityContext holds pod-level security attributes and common container settings.\nThis defaults to the default PodSecurityContext."
+
+### fn spec.withSecurityContextMixin
+
+```ts
+withSecurityContextMixin(securityContext)
+```
+
+"SecurityContext holds pod-level security attributes and common container settings.\nThis defaults to the default PodSecurityContext."
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.withServiceAccountName
+
+```ts
+withServiceAccountName(serviceAccountName)
+```
+
+"ServiceAccountName is the name of the ServiceAccount to use to run the pods"
+
+### fn spec.withServiceScrapeSpec
+
+```ts
+withServiceScrapeSpec(serviceScrapeSpec)
+```
+
+"ServiceScrapeSpec that will be added to vlagent VMServiceScrape spec"
+
+### fn spec.withServiceScrapeSpecMixin
+
+```ts
+withServiceScrapeSpecMixin(serviceScrapeSpec)
+```
+
+"ServiceScrapeSpec that will be added to vlagent VMServiceScrape spec"
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.withStartupProbe
+
+```ts
+withStartupProbe(startupProbe)
+```
+
+"StartupProbe that will be added to CRD pod"
+
+### fn spec.withStartupProbeMixin
+
+```ts
+withStartupProbeMixin(startupProbe)
+```
+
+"StartupProbe that will be added to CRD pod"
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.withTerminationGracePeriodSeconds
+
+```ts
+withTerminationGracePeriodSeconds(terminationGracePeriodSeconds)
+```
+
+"TerminationGracePeriodSeconds period for container graceful termination"
+
+### fn spec.withTolerations
+
+```ts
+withTolerations(tolerations)
+```
+
+"Tolerations If specified, the pod's tolerations."
+
+### fn spec.withTolerationsMixin
+
+```ts
+withTolerationsMixin(tolerations)
+```
+
+"Tolerations If specified, the pod's tolerations."
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.withTopologySpreadConstraints
+
+```ts
+withTopologySpreadConstraints(topologySpreadConstraints)
+```
+
+"TopologySpreadConstraints embedded kubernetes pod configuration option,\ncontrols how pods are spread across your cluster among failure-domains\nsuch as regions, zones, nodes, and other user-defined topology domains\nhttps://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/"
+
+### fn spec.withTopologySpreadConstraintsMixin
+
+```ts
+withTopologySpreadConstraintsMixin(topologySpreadConstraints)
+```
+
+"TopologySpreadConstraints embedded kubernetes pod configuration option,\ncontrols how pods are spread across your cluster among failure-domains\nsuch as regions, zones, nodes, and other user-defined topology domains\nhttps://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/"
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.withUseDefaultResources
+
+```ts
+withUseDefaultResources(useDefaultResources)
+```
+
+"UseDefaultResources controls resource settings\nBy default, operator sets built-in resource requirements"
+
+### fn spec.withUseStrictSecurity
+
+```ts
+withUseStrictSecurity(useStrictSecurity)
+```
+
+"UseStrictSecurity enables strict security mode for component\nit restricts disk writes access\nuses non-root user out of the box\ndrops not needed security permissions"
+
+### fn spec.withVolumeMounts
+
+```ts
+withVolumeMounts(volumeMounts)
+```
+
+"VolumeMounts allows configuration of additional VolumeMounts on the output Deployment/StatefulSet definition.\nVolumeMounts specified will be appended to other VolumeMounts in the Application container"
+
+### fn spec.withVolumeMountsMixin
+
+```ts
+withVolumeMountsMixin(volumeMounts)
+```
+
+"VolumeMounts allows configuration of additional VolumeMounts on the output Deployment/StatefulSet definition.\nVolumeMounts specified will be appended to other VolumeMounts in the Application container"
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.withVolumes
+
+```ts
+withVolumes(volumes)
+```
+
+"Volumes allows configuration of additional volumes on the output Deployment/StatefulSet definition.\nVolumes specified will be appended to other volumes that are generated.\n/ +optional"
+
+### fn spec.withVolumesMixin
+
+```ts
+withVolumesMixin(volumes)
+```
+
+"Volumes allows configuration of additional volumes on the output Deployment/StatefulSet definition.\nVolumes specified will be appended to other volumes that are generated.\n/ +optional"
+
+**Note:** This function appends passed data to existing values
+
+## obj spec.claimTemplates
+
+"ClaimTemplates allows adding additional VolumeClaimTemplates for VLAgent in Mode: StatefulSet"
+
+### fn spec.claimTemplates.withApiVersion
+
+```ts
+withApiVersion(apiVersion)
+```
+
+"APIVersion defines the versioned schema of this representation of an object.\nServers should convert recognized schemas to the latest internal value, and\nmay reject unrecognized values.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources"
+
+### fn spec.claimTemplates.withKind
+
+```ts
+withKind(kind)
+```
+
+"Kind is a string value representing the REST resource this object represents.\nServers may infer this from the endpoint the client submits requests to.\nCannot be updated.\nIn CamelCase.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+
+### fn spec.claimTemplates.withMetadata
+
+```ts
+withMetadata(metadata)
+```
+
+"Standard object's metadata.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
+
+### fn spec.claimTemplates.withMetadataMixin
+
+```ts
+withMetadataMixin(metadata)
+```
+
+"Standard object's metadata.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
+
+**Note:** This function appends passed data to existing values
+
+## obj spec.claimTemplates.spec
+
+"spec defines the desired characteristics of a volume requested by a pod author.\nMore info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims"
+
+### fn spec.claimTemplates.spec.withAccessModes
+
+```ts
+withAccessModes(accessModes)
+```
+
+"accessModes contains the desired access modes the volume should have.\nMore info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1"
+
+### fn spec.claimTemplates.spec.withAccessModesMixin
+
+```ts
+withAccessModesMixin(accessModes)
+```
+
+"accessModes contains the desired access modes the volume should have.\nMore info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1"
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.claimTemplates.spec.withStorageClassName
+
+```ts
+withStorageClassName(storageClassName)
+```
+
+"storageClassName is the name of the StorageClass required by the claim.\nMore info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1"
+
+### fn spec.claimTemplates.spec.withVolumeAttributesClassName
+
+```ts
+withVolumeAttributesClassName(volumeAttributesClassName)
+```
+
+"volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim.\nIf specified, the CSI driver will create or update the volume with the attributes defined\nin the corresponding VolumeAttributesClass. This has a different purpose than storageClassName,\nit can be changed after the claim is created. An empty string value means that no VolumeAttributesClass\nwill be applied to the claim but it's not allowed to reset this field to empty string once it is set.\nIf unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass\nwill be set by the persistentvolume controller if it exists.\nIf the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be\nset to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource\nexists.\nMore info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/\n(Beta) Using this field requires the VolumeAttributesClass feature gate to be enabled (off by default)."
+
+### fn spec.claimTemplates.spec.withVolumeMode
+
+```ts
+withVolumeMode(volumeMode)
+```
+
+"volumeMode defines what type of volume is required by the claim.\nValue of Filesystem is implied when not included in claim spec."
+
+### fn spec.claimTemplates.spec.withVolumeName
+
+```ts
+withVolumeName(volumeName)
+```
+
+"volumeName is the binding reference to the PersistentVolume backing this claim."
+
+## obj spec.claimTemplates.spec.dataSource
+
+"dataSource field can be used to specify either:\n* An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot)\n* An existing PVC (PersistentVolumeClaim)\nIf the provisioner or an external controller can support the specified data source,\nit will create a new volume based on the contents of the specified data source.\nWhen the AnyVolumeDataSource feature gate is enabled, dataSource contents will be copied to dataSourceRef,\nand dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified.\nIf the namespace is specified, then dataSourceRef will not be copied to dataSource."
+
+### fn spec.claimTemplates.spec.dataSource.withApiGroup
+
+```ts
+withApiGroup(apiGroup)
+```
+
+"APIGroup is the group for the resource being referenced.\nIf APIGroup is not specified, the specified Kind must be in the core API group.\nFor any other third-party types, APIGroup is required."
+
+### fn spec.claimTemplates.spec.dataSource.withKind
+
+```ts
+withKind(kind)
+```
+
+"Kind is the type of resource being referenced"
+
+### fn spec.claimTemplates.spec.dataSource.withName
+
+```ts
+withName(name)
+```
+
+"Name is the name of resource being referenced"
+
+## obj spec.claimTemplates.spec.dataSourceRef
+
+"dataSourceRef specifies the object from which to populate the volume with data, if a non-empty\nvolume is desired. This may be any object from a non-empty API group (non\ncore object) or a PersistentVolumeClaim object.\nWhen this field is specified, volume binding will only succeed if the type of\nthe specified object matches some installed volume populator or dynamic\nprovisioner.\nThis field will replace the functionality of the dataSource field and as such\nif both fields are non-empty, they must have the same value. For backwards\ncompatibility, when namespace isn't specified in dataSourceRef,\nboth fields (dataSource and dataSourceRef) will be set to the same\nvalue automatically if one of them is empty and the other is non-empty.\nWhen namespace is specified in dataSourceRef,\ndataSource isn't set to the same value and must be empty.\nThere are three important differences between dataSource and dataSourceRef:\n* While dataSource only allows two specific types of objects, dataSourceRef\n  allows any non-core object, as well as PersistentVolumeClaim objects.\n* While dataSource ignores disallowed values (dropping them), dataSourceRef\n  preserves all values, and generates an error if a disallowed value is\n  specified.\n* While dataSource only allows local objects, dataSourceRef allows objects\n  in any namespaces.\n(Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled.\n(Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled."
+
+### fn spec.claimTemplates.spec.dataSourceRef.withApiGroup
+
+```ts
+withApiGroup(apiGroup)
+```
+
+"APIGroup is the group for the resource being referenced.\nIf APIGroup is not specified, the specified Kind must be in the core API group.\nFor any other third-party types, APIGroup is required."
+
+### fn spec.claimTemplates.spec.dataSourceRef.withKind
+
+```ts
+withKind(kind)
+```
+
+"Kind is the type of resource being referenced"
+
+### fn spec.claimTemplates.spec.dataSourceRef.withName
+
+```ts
+withName(name)
+```
+
+"Name is the name of resource being referenced"
+
+### fn spec.claimTemplates.spec.dataSourceRef.withNamespace
+
+```ts
+withNamespace(namespace)
+```
+
+"Namespace is the namespace of resource being referenced\nNote that when a namespace is specified, a gateway.networking.k8s.io/ReferenceGrant object is required in the referent namespace to allow that namespace's owner to accept the reference. See the ReferenceGrant documentation for details.\n(Alpha) This field requires the CrossNamespaceVolumeDataSource feature gate to be enabled."
+
+## obj spec.claimTemplates.spec.resources
+
+"resources represents the minimum resources the volume should have.\nIf RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements\nthat are lower than previous value but must still be higher than capacity recorded in the\nstatus field of the claim.\nMore info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources"
+
+### fn spec.claimTemplates.spec.resources.withLimits
+
+```ts
+withLimits(limits)
+```
+
+"Limits describes the maximum amount of compute resources allowed.\nMore info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/"
+
+### fn spec.claimTemplates.spec.resources.withLimitsMixin
+
+```ts
+withLimitsMixin(limits)
+```
+
+"Limits describes the maximum amount of compute resources allowed.\nMore info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/"
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.claimTemplates.spec.resources.withRequests
+
+```ts
+withRequests(requests)
+```
+
+"Requests describes the minimum amount of compute resources required.\nIf Requests is omitted for a container, it defaults to Limits if that is explicitly specified,\notherwise to an implementation-defined value. Requests cannot exceed Limits.\nMore info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/"
+
+### fn spec.claimTemplates.spec.resources.withRequestsMixin
+
+```ts
+withRequestsMixin(requests)
+```
+
+"Requests describes the minimum amount of compute resources required.\nIf Requests is omitted for a container, it defaults to Limits if that is explicitly specified,\notherwise to an implementation-defined value. Requests cannot exceed Limits.\nMore info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/"
+
+**Note:** This function appends passed data to existing values
+
+## obj spec.claimTemplates.spec.selector
+
+"selector is a label query over volumes to consider for binding."
+
+### fn spec.claimTemplates.spec.selector.withMatchExpressions
+
+```ts
+withMatchExpressions(matchExpressions)
+```
+
+"matchExpressions is a list of label selector requirements. The requirements are ANDed."
+
+### fn spec.claimTemplates.spec.selector.withMatchExpressionsMixin
+
+```ts
+withMatchExpressionsMixin(matchExpressions)
+```
+
+"matchExpressions is a list of label selector requirements. The requirements are ANDed."
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.claimTemplates.spec.selector.withMatchLabels
+
+```ts
+withMatchLabels(matchLabels)
+```
+
+"matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels\nmap is equivalent to an element of matchExpressions, whose key field is \"key\", the\noperator is \"In\", and the values array contains only \"value\". The requirements are ANDed."
+
+### fn spec.claimTemplates.spec.selector.withMatchLabelsMixin
+
+```ts
+withMatchLabelsMixin(matchLabels)
+```
+
+"matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels\nmap is equivalent to an element of matchExpressions, whose key field is \"key\", the\noperator is \"In\", and the values array contains only \"value\". The requirements are ANDed."
+
+**Note:** This function appends passed data to existing values
+
+## obj spec.claimTemplates.spec.selector.matchExpressions
+
+"matchExpressions is a list of label selector requirements. The requirements are ANDed."
+
+### fn spec.claimTemplates.spec.selector.matchExpressions.withKey
+
+```ts
+withKey(key)
+```
+
+"key is the label key that the selector applies to."
+
+### fn spec.claimTemplates.spec.selector.matchExpressions.withOperator
+
+```ts
+withOperator(operator)
+```
+
+"operator represents a key's relationship to a set of values.\nValid operators are In, NotIn, Exists and DoesNotExist."
+
+### fn spec.claimTemplates.spec.selector.matchExpressions.withValues
+
+```ts
+withValues(values)
+```
+
+"values is an array of string values. If the operator is In or NotIn,\nthe values array must be non-empty. If the operator is Exists or DoesNotExist,\nthe values array must be empty. This array is replaced during a strategic\nmerge patch."
+
+### fn spec.claimTemplates.spec.selector.matchExpressions.withValuesMixin
+
+```ts
+withValuesMixin(values)
+```
+
+"values is an array of string values. If the operator is In or NotIn,\nthe values array must be non-empty. If the operator is Exists or DoesNotExist,\nthe values array must be empty. This array is replaced during a strategic\nmerge patch."
+
+**Note:** This function appends passed data to existing values
+
+## obj spec.dnsConfig
+
+"Specifies the DNS parameters of a pod.\nParameters specified here will be merged to the generated DNS\nconfiguration based on DNSPolicy."
+
+### fn spec.dnsConfig.withNameservers
+
+```ts
+withNameservers(nameservers)
+```
+
+"A list of DNS name server IP addresses.\nThis will be appended to the base nameservers generated from DNSPolicy.\nDuplicated nameservers will be removed."
+
+### fn spec.dnsConfig.withNameserversMixin
+
+```ts
+withNameserversMixin(nameservers)
+```
+
+"A list of DNS name server IP addresses.\nThis will be appended to the base nameservers generated from DNSPolicy.\nDuplicated nameservers will be removed."
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.dnsConfig.withOptions
+
+```ts
+withOptions(options)
+```
+
+"A list of DNS resolver options.\nThis will be merged with the base options generated from DNSPolicy.\nDuplicated entries will be removed. Resolution options given in Options\nwill override those that appear in the base DNSPolicy."
+
+### fn spec.dnsConfig.withOptionsMixin
+
+```ts
+withOptionsMixin(options)
+```
+
+"A list of DNS resolver options.\nThis will be merged with the base options generated from DNSPolicy.\nDuplicated entries will be removed. Resolution options given in Options\nwill override those that appear in the base DNSPolicy."
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.dnsConfig.withSearches
+
+```ts
+withSearches(searches)
+```
+
+"A list of DNS search domains for host-name lookup.\nThis will be appended to the base search paths generated from DNSPolicy.\nDuplicated search paths will be removed."
+
+### fn spec.dnsConfig.withSearchesMixin
+
+```ts
+withSearchesMixin(searches)
+```
+
+"A list of DNS search domains for host-name lookup.\nThis will be appended to the base search paths generated from DNSPolicy.\nDuplicated search paths will be removed."
+
+**Note:** This function appends passed data to existing values
+
+## obj spec.dnsConfig.options
+
+"A list of DNS resolver options.\nThis will be merged with the base options generated from DNSPolicy.\nDuplicated entries will be removed. Resolution options given in Options\nwill override those that appear in the base DNSPolicy."
+
+### fn spec.dnsConfig.options.withName
+
+```ts
+withName(name)
+```
+
+"Name is this DNS resolver option's name.\nRequired."
+
+### fn spec.dnsConfig.options.withValue
+
+```ts
+withValue(value)
+```
+
+"Value is this DNS resolver option's value."
+
+## obj spec.extraEnvs
+
+"ExtraEnvs that will be passed to the application container"
+
+### fn spec.extraEnvs.withName
+
+```ts
+withName(name)
+```
+
+"Name of the environment variable. Must be a C_IDENTIFIER."
+
+### fn spec.extraEnvs.withValue
+
+```ts
+withValue(value)
+```
+
+"Variable references $(VAR_NAME) are expanded\nusing the previously defined environment variables in the container and\nany service environment variables. If a variable cannot be resolved,\nthe reference in the input string will be unchanged. Double $$ are reduced\nto a single $, which allows for escaping the $(VAR_NAME) syntax: i.e.\n\"$$(VAR_NAME)\" will produce the string literal \"$(VAR_NAME)\".\nEscaped references will never be expanded, regardless of whether the variable\nexists or not.\nDefaults to \"\"."
+
+## obj spec.extraEnvsFrom
+
+"ExtraEnvsFrom defines source of env variables for the application container\ncould either be secret or configmap"
+
+### fn spec.extraEnvsFrom.withPrefix
+
+```ts
+withPrefix(prefix)
+```
+
+"An optional identifier to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER."
+
+## obj spec.extraEnvsFrom.configMapRef
+
+"The ConfigMap to select from"
+
+### fn spec.extraEnvsFrom.configMapRef.withName
+
+```ts
+withName(name)
+```
+
+"Name of the referent.\nThis field is effectively required, but due to backwards compatibility is\nallowed to be empty. Instances of this type with an empty value here are\nalmost certainly wrong.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+
+### fn spec.extraEnvsFrom.configMapRef.withOptional
+
+```ts
+withOptional(optional)
+```
+
+"Specify whether the ConfigMap must be defined"
+
+## obj spec.extraEnvsFrom.secretRef
+
+"The Secret to select from"
+
+### fn spec.extraEnvsFrom.secretRef.withName
+
+```ts
+withName(name)
+```
+
+"Name of the referent.\nThis field is effectively required, but due to backwards compatibility is\nallowed to be empty. Instances of this type with an empty value here are\nalmost certainly wrong.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+
+### fn spec.extraEnvsFrom.secretRef.withOptional
+
+```ts
+withOptional(optional)
+```
+
+"Specify whether the Secret must be defined"
+
+## obj spec.hostAliases
+
+"HostAliases provides mapping for ip and hostname,\nthat would be propagated to pod,\ncannot be used with HostNetwork."
+
+### fn spec.hostAliases.withHostnames
+
+```ts
+withHostnames(hostnames)
+```
+
+"Hostnames for the above IP address."
+
+### fn spec.hostAliases.withHostnamesMixin
+
+```ts
+withHostnamesMixin(hostnames)
+```
+
+"Hostnames for the above IP address."
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.hostAliases.withIp
+
+```ts
+withIp(ip)
+```
+
+"IP address of the host file entry."
+
+## obj spec.host_aliases
+
+"HostAliasesUnderScore provides mapping for ip and hostname,\nthat would be propagated to pod,\ncannot be used with HostNetwork.\nHas Priority over hostAliases field"
+
+### fn spec.host_aliases.withHostnames
+
+```ts
+withHostnames(hostnames)
+```
+
+"Hostnames for the above IP address."
+
+### fn spec.host_aliases.withHostnamesMixin
+
+```ts
+withHostnamesMixin(hostnames)
+```
+
+"Hostnames for the above IP address."
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.host_aliases.withIp
+
+```ts
+withIp(ip)
+```
+
+"IP address of the host file entry."
+
+## obj spec.image
+
+"Image - docker image settings\nif no specified operator uses default version from operator config"
+
+### fn spec.image.withPullPolicy
+
+```ts
+withPullPolicy(pullPolicy)
+```
+
+"PullPolicy describes how to pull docker image"
+
+### fn spec.image.withRepository
+
+```ts
+withRepository(repository)
+```
+
+"Repository contains name of docker image + it's repository if needed"
+
+### fn spec.image.withTag
+
+```ts
+withTag(tag)
+```
+
+"Tag contains desired docker image version"
+
+## obj spec.imagePullSecrets
+
+"ImagePullSecrets An optional list of references to secrets in the same namespace\nto use for pulling images from registries\nsee https://kubernetes.io/docs/concepts/containers/images/#referring-to-an-imagepullsecrets-on-a-pod"
+
+### fn spec.imagePullSecrets.withName
+
+```ts
+withName(name)
+```
+
+"Name of the referent.\nThis field is effectively required, but due to backwards compatibility is\nallowed to be empty. Instances of this type with an empty value here are\nalmost certainly wrong.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+
+## obj spec.managedMetadata
+
+"ManagedMetadata defines metadata that will be added to the all objects\ncreated by operator for the given CustomResource"
+
+### fn spec.managedMetadata.withAnnotations
+
+```ts
+withAnnotations(annotations)
+```
+
+"Annotations is an unstructured key value map stored with a resource that may be\nset by external tools to store and retrieve arbitrary metadata. They are not\nqueryable and should be preserved when modifying objects.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations"
+
+### fn spec.managedMetadata.withAnnotationsMixin
+
+```ts
+withAnnotationsMixin(annotations)
+```
+
+"Annotations is an unstructured key value map stored with a resource that may be\nset by external tools to store and retrieve arbitrary metadata. They are not\nqueryable and should be preserved when modifying objects.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations"
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.managedMetadata.withLabels
+
+```ts
+withLabels(labels)
+```
+
+"Labels Map of string keys and values that can be used to organize and categorize\n(scope and select) objects.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels"
+
+### fn spec.managedMetadata.withLabelsMixin
+
+```ts
+withLabelsMixin(labels)
+```
+
+"Labels Map of string keys and values that can be used to organize and categorize\n(scope and select) objects.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels"
+
+**Note:** This function appends passed data to existing values
+
+## obj spec.persistentVolumeClaimRetentionPolicy
+
+"PersistentVolumeClaimRetentionPolicy allows configuration of PVC retention policy"
+
+### fn spec.persistentVolumeClaimRetentionPolicy.withWhenDeleted
+
+```ts
+withWhenDeleted(whenDeleted)
+```
+
+"WhenDeleted specifies what happens to PVCs created from StatefulSet\nVolumeClaimTemplates when the StatefulSet is deleted. The default policy\nof `Retain` causes PVCs to not be affected by StatefulSet deletion. The\n`Delete` policy causes those PVCs to be deleted."
+
+### fn spec.persistentVolumeClaimRetentionPolicy.withWhenScaled
+
+```ts
+withWhenScaled(whenScaled)
+```
+
+"WhenScaled specifies what happens to PVCs created from StatefulSet\nVolumeClaimTemplates when the StatefulSet is scaled down. The default\npolicy of `Retain` causes PVCs to not be affected by a scaledown. The\n`Delete` policy causes the associated PVCs for any excess pods above\nthe replica count to be deleted."
+
+## obj spec.podDisruptionBudget
+
+"PodDisruptionBudget created by operator"
+
+### fn spec.podDisruptionBudget.withMaxUnavailable
+
+```ts
+withMaxUnavailable(maxUnavailable)
+```
+
+"An eviction is allowed if at most \"maxUnavailable\" pods selected by\n\"selector\" are unavailable after the eviction, i.e. even in absence of\nthe evicted pod. For example, one can prevent all voluntary evictions\nby specifying 0. This is a mutually exclusive setting with \"minAvailable\"."
+
+### fn spec.podDisruptionBudget.withMinAvailable
+
+```ts
+withMinAvailable(minAvailable)
+```
+
+"An eviction is allowed if at least \"minAvailable\" pods selected by\n\"selector\" will still be available after the eviction, i.e. even in the\nabsence of the evicted pod.  So for example you can prevent all voluntary\nevictions by specifying \"100%\"."
+
+### fn spec.podDisruptionBudget.withSelectorLabels
+
+```ts
+withSelectorLabels(selectorLabels)
+```
+
+"replaces default labels selector generated by operator\nit's useful when you need to create custom budget"
+
+### fn spec.podDisruptionBudget.withSelectorLabelsMixin
+
+```ts
+withSelectorLabelsMixin(selectorLabels)
+```
+
+"replaces default labels selector generated by operator\nit's useful when you need to create custom budget"
+
+**Note:** This function appends passed data to existing values
+
+## obj spec.podMetadata
+
+"PodMetadata configures Labels and Annotations which are propagated to the vlagent pods."
+
+### fn spec.podMetadata.withAnnotations
+
+```ts
+withAnnotations(annotations)
+```
+
+"Annotations is an unstructured key value map stored with a resource that may be\nset by external tools to store and retrieve arbitrary metadata. They are not\nqueryable and should be preserved when modifying objects.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations"
+
+### fn spec.podMetadata.withAnnotationsMixin
+
+```ts
+withAnnotationsMixin(annotations)
+```
+
+"Annotations is an unstructured key value map stored with a resource that may be\nset by external tools to store and retrieve arbitrary metadata. They are not\nqueryable and should be preserved when modifying objects.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations"
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.podMetadata.withLabels
+
+```ts
+withLabels(labels)
+```
+
+"Labels Map of string keys and values that can be used to organize and categorize\n(scope and select) objects. May match selectors of replication controllers\nand services.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels"
+
+### fn spec.podMetadata.withLabelsMixin
+
+```ts
+withLabelsMixin(labels)
+```
+
+"Labels Map of string keys and values that can be used to organize and categorize\n(scope and select) objects. May match selectors of replication controllers\nand services.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels"
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.podMetadata.withName
+
+```ts
+withName(name)
+```
+
+"Name must be unique within a namespace. Is required when creating resources, although\nsome resources may allow a client to request the generation of an appropriate name\nautomatically. Name is primarily intended for creation idempotence and configuration\ndefinition.\nCannot be updated.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names"
+
+## obj spec.readinessGates
+
+"ReadinessGates defines pod readiness gates"
+
+### fn spec.readinessGates.withConditionType
+
+```ts
+withConditionType(conditionType)
+```
+
+"ConditionType refers to a condition in the pod's condition list with matching type."
+
+## obj spec.remoteWrite
+
+"RemoteWrite list of victoria logs endpoints\nfor victorialogs it must looks like: http://victoria-logs-single:9428/\nor for cluster different url\nhttps://docs.victoriametrics.com/victorialogs/vlagent/#replication-and-high-availability"
+
+### fn spec.remoteWrite.withBearerTokenPath
+
+```ts
+withBearerTokenPath(bearerTokenPath)
+```
+
+"Optional bearer auth token to use for -remoteWrite.url"
+
+### fn spec.remoteWrite.withHeaders
+
+```ts
+withHeaders(headers)
+```
+
+"Headers allow configuring custom http headers\nMust be in form of semicolon separated header with value\ne.g.\nheaderName: headerValue"
+
+### fn spec.remoteWrite.withHeadersMixin
+
+```ts
+withHeadersMixin(headers)
+```
+
+"Headers allow configuring custom http headers\nMust be in form of semicolon separated header with value\ne.g.\nheaderName: headerValue"
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.remoteWrite.withMaxDiskUsage
+
+```ts
+withMaxDiskUsage(maxDiskUsage)
+```
+
+"MaxDiskUsage defines the maximum file-based buffer size in bytes for the given remoteWrite\nIt overrides global configuration defined at remoteWriteSettings.maxDiskUsagePerURL"
+
+### fn spec.remoteWrite.withProxyURL
+
+```ts
+withProxyURL(proxyURL)
+```
+
+"ProxyURL for -remoteWrite.url. Supported proxies: http, https, socks5. Example: socks5://proxy:1234"
+
+### fn spec.remoteWrite.withSendTimeout
+
+```ts
+withSendTimeout(sendTimeout)
+```
+
+"Timeout for sending a single block of data to -remoteWrite.url (default 1m0s)"
+
+### fn spec.remoteWrite.withUrl
+
+```ts
+withUrl(url)
+```
+
+"URL of the endpoint to send samples to."
+
+## obj spec.remoteWrite.bearerTokenSecret
+
+"Optional bearer auth token to use for -remoteWrite.url"
+
+### fn spec.remoteWrite.bearerTokenSecret.withKey
+
+```ts
+withKey(key)
+```
+
+"The key of the secret to select from.  Must be a valid secret key."
+
+### fn spec.remoteWrite.bearerTokenSecret.withName
+
+```ts
+withName(name)
+```
+
+"Name of the referent.\nThis field is effectively required, but due to backwards compatibility is\nallowed to be empty. Instances of this type with an empty value here are\nalmost certainly wrong.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+
+### fn spec.remoteWrite.bearerTokenSecret.withOptional
+
+```ts
+withOptional(optional)
+```
+
+"Specify whether the Secret or its key must be defined"
+
+## obj spec.remoteWrite.oauth2
+
+"OAuth2 defines auth configuration"
+
+### fn spec.remoteWrite.oauth2.withClientIDFile
+
+```ts
+withClientIDFile(clientIDFile)
+```
+
+"ClientIDFile defines path to pre-mounted OAuth2 client id"
+
+### fn spec.remoteWrite.oauth2.withClientSecretFile
+
+```ts
+withClientSecretFile(clientSecretFile)
+```
+
+"ClientSecretFile defines path to pre-mounted OAuth2 client secret"
+
+### fn spec.remoteWrite.oauth2.withEndpointParams
+
+```ts
+withEndpointParams(endpointParams)
+```
+
+"EndpointParams to append to the token URL"
+
+### fn spec.remoteWrite.oauth2.withEndpointParamsMixin
+
+```ts
+withEndpointParamsMixin(endpointParams)
+```
+
+"EndpointParams to append to the token URL"
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.remoteWrite.oauth2.withScopes
+
+```ts
+withScopes(scopes)
+```
+
+"Scopes used for the token request"
+
+### fn spec.remoteWrite.oauth2.withScopesMixin
+
+```ts
+withScopesMixin(scopes)
+```
+
+"Scopes used for the token request"
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.remoteWrite.oauth2.withTokenURL
+
+```ts
+withTokenURL(tokenURL)
+```
+
+"TokenURL defines URL to fetch the token from"
+
+## obj spec.remoteWrite.oauth2.clientIDSecret
+
+"ClientIDSecret defines secret or configmap containing the OAuth2 client id"
+
+### fn spec.remoteWrite.oauth2.clientIDSecret.withKey
+
+```ts
+withKey(key)
+```
+
+"The key of the secret to select from.  Must be a valid secret key."
+
+### fn spec.remoteWrite.oauth2.clientIDSecret.withName
+
+```ts
+withName(name)
+```
+
+"Name of the referent.\nThis field is effectively required, but due to backwards compatibility is\nallowed to be empty. Instances of this type with an empty value here are\nalmost certainly wrong.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+
+### fn spec.remoteWrite.oauth2.clientIDSecret.withOptional
+
+```ts
+withOptional(optional)
+```
+
+"Specify whether the Secret or its key must be defined"
+
+## obj spec.remoteWrite.oauth2.clientSecret
+
+"The secret containing the OAuth2 client secret"
+
+### fn spec.remoteWrite.oauth2.clientSecret.withKey
+
+```ts
+withKey(key)
+```
+
+"The key of the secret to select from.  Must be a valid secret key."
+
+### fn spec.remoteWrite.oauth2.clientSecret.withName
+
+```ts
+withName(name)
+```
+
+"Name of the referent.\nThis field is effectively required, but due to backwards compatibility is\nallowed to be empty. Instances of this type with an empty value here are\nalmost certainly wrong.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+
+### fn spec.remoteWrite.oauth2.clientSecret.withOptional
+
+```ts
+withOptional(optional)
+```
+
+"Specify whether the Secret or its key must be defined"
+
+## obj spec.remoteWrite.tlsConfig
+
+"TLSConfig describes tls configuration for remote write target"
+
+### fn spec.remoteWrite.tlsConfig.withCaFile
+
+```ts
+withCaFile(caFile)
+```
+
+"CAFile defines path to the pre-mounted file with TLS ca certificate"
+
+### fn spec.remoteWrite.tlsConfig.withCertFile
+
+```ts
+withCertFile(certFile)
+```
+
+"CertFile defines path to the pre-mounted file with TLS certificate\nmutually exclusive with CertSecret"
+
+### fn spec.remoteWrite.tlsConfig.withInsecureSkipVerify
+
+```ts
+withInsecureSkipVerify(insecureSkipVerify)
+```
+
+"Disable target certificate validation."
+
+### fn spec.remoteWrite.tlsConfig.withKeyFile
+
+```ts
+withKeyFile(keyFile)
+```
+
+"KeyFile defines path to the pre-mounted file with TLS cert key\nmutually exclusive with CertSecret"
+
+### fn spec.remoteWrite.tlsConfig.withServerName
+
+```ts
+withServerName(serverName)
+```
+
+"Used to verify the hostname for the targets."
+
+## obj spec.remoteWrite.tlsConfig.caSecretKeyRef
+
+"CASecret defines secret reference with tls CA key by given key"
+
+### fn spec.remoteWrite.tlsConfig.caSecretKeyRef.withKey
+
+```ts
+withKey(key)
+```
+
+"The key of the secret to select from.  Must be a valid secret key."
+
+### fn spec.remoteWrite.tlsConfig.caSecretKeyRef.withName
+
+```ts
+withName(name)
+```
+
+"Name of the referent.\nThis field is effectively required, but due to backwards compatibility is\nallowed to be empty. Instances of this type with an empty value here are\nalmost certainly wrong.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+
+### fn spec.remoteWrite.tlsConfig.caSecretKeyRef.withOptional
+
+```ts
+withOptional(optional)
+```
+
+"Specify whether the Secret or its key must be defined"
+
+## obj spec.remoteWrite.tlsConfig.certSecretKeyRef
+
+"CertSecret defines secret reference with TLS cert by given key\nmutually exclusive with CASecret"
+
+### fn spec.remoteWrite.tlsConfig.certSecretKeyRef.withKey
+
+```ts
+withKey(key)
+```
+
+"The key of the secret to select from.  Must be a valid secret key."
+
+### fn spec.remoteWrite.tlsConfig.certSecretKeyRef.withName
+
+```ts
+withName(name)
+```
+
+"Name of the referent.\nThis field is effectively required, but due to backwards compatibility is\nallowed to be empty. Instances of this type with an empty value here are\nalmost certainly wrong.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+
+### fn spec.remoteWrite.tlsConfig.certSecretKeyRef.withOptional
+
+```ts
+withOptional(optional)
+```
+
+"Specify whether the Secret or its key must be defined"
+
+## obj spec.remoteWrite.tlsConfig.keySecretKeyRef
+
+"CertSecret defines secret reference with TLS key by given key"
+
+### fn spec.remoteWrite.tlsConfig.keySecretKeyRef.withKey
+
+```ts
+withKey(key)
+```
+
+"The key of the secret to select from.  Must be a valid secret key."
+
+### fn spec.remoteWrite.tlsConfig.keySecretKeyRef.withName
+
+```ts
+withName(name)
+```
+
+"Name of the referent.\nThis field is effectively required, but due to backwards compatibility is\nallowed to be empty. Instances of this type with an empty value here are\nalmost certainly wrong.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+
+### fn spec.remoteWrite.tlsConfig.keySecretKeyRef.withOptional
+
+```ts
+withOptional(optional)
+```
+
+"Specify whether the Secret or its key must be defined"
+
+## obj spec.remoteWriteSettings
+
+"RemoteWriteSettings defines global settings for all remoteWrite urls."
+
+### fn spec.remoteWriteSettings.withFlushInterval
+
+```ts
+withFlushInterval(flushInterval)
+```
+
+"Interval for flushing the data to remote storage. (default 1s)"
+
+### fn spec.remoteWriteSettings.withMaxBlockSize
+
+```ts
+withMaxBlockSize(maxBlockSize)
+```
+
+"The maximum size of unpacked request to send to remote storage"
+
+### fn spec.remoteWriteSettings.withMaxDiskUsagePerURL
+
+```ts
+withMaxDiskUsagePerURL(maxDiskUsagePerURL)
+```
+
+"The maximum file-based buffer size in bytes at -remoteWrite.tmpDataPath"
+
+### fn spec.remoteWriteSettings.withQueues
+
+```ts
+withQueues(queues)
+```
+
+"The number of concurrent queues"
+
+### fn spec.remoteWriteSettings.withShowURL
+
+```ts
+withShowURL(showURL)
+```
+
+"Whether to show -remoteWrite.url in the exported metrics. It is hidden by default, since it can contain sensitive auth info"
+
+### fn spec.remoteWriteSettings.withTmpDataPath
+
+```ts
+withTmpDataPath(tmpDataPath)
+```
+
+"Path to directory where temporary data for remote write component is stored (default /vlagent_pq/vlagent-remotewrite-data)\nIf defined, operator ignores spec.storage field and skips adding volume and volumeMount for pq"
+
+## obj spec.resources
+
+"Resources container resource request and limits, https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/\nif not defined default resources from operator config will be used"
+
+### fn spec.resources.withClaims
+
+```ts
+withClaims(claims)
+```
+
+"Claims lists the names of resources, defined in spec.resourceClaims,\nthat are used by this container.\n\nThis is an alpha field and requires enabling the\nDynamicResourceAllocation feature gate.\n\nThis field is immutable. It can only be set for containers."
+
+### fn spec.resources.withClaimsMixin
+
+```ts
+withClaimsMixin(claims)
+```
+
+"Claims lists the names of resources, defined in spec.resourceClaims,\nthat are used by this container.\n\nThis is an alpha field and requires enabling the\nDynamicResourceAllocation feature gate.\n\nThis field is immutable. It can only be set for containers."
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.resources.withLimits
+
+```ts
+withLimits(limits)
+```
+
+"Limits describes the maximum amount of compute resources allowed.\nMore info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/"
+
+### fn spec.resources.withLimitsMixin
+
+```ts
+withLimitsMixin(limits)
+```
+
+"Limits describes the maximum amount of compute resources allowed.\nMore info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/"
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.resources.withRequests
+
+```ts
+withRequests(requests)
+```
+
+"Requests describes the minimum amount of compute resources required.\nIf Requests is omitted for a container, it defaults to Limits if that is explicitly specified,\notherwise to an implementation-defined value. Requests cannot exceed Limits.\nMore info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/"
+
+### fn spec.resources.withRequestsMixin
+
+```ts
+withRequestsMixin(requests)
+```
+
+"Requests describes the minimum amount of compute resources required.\nIf Requests is omitted for a container, it defaults to Limits if that is explicitly specified,\notherwise to an implementation-defined value. Requests cannot exceed Limits.\nMore info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/"
+
+**Note:** This function appends passed data to existing values
+
+## obj spec.resources.claims
+
+"Claims lists the names of resources, defined in spec.resourceClaims,\nthat are used by this container.\n\nThis is an alpha field and requires enabling the\nDynamicResourceAllocation feature gate.\n\nThis field is immutable. It can only be set for containers."
+
+### fn spec.resources.claims.withName
+
+```ts
+withName(name)
+```
+
+"Name must match the name of one entry in pod.spec.resourceClaims of\nthe Pod where this field is used. It makes that resource available\ninside a container."
+
+### fn spec.resources.claims.withRequest
+
+```ts
+withRequest(request)
+```
+
+"Request is the name chosen for a request in the referenced claim.\nIf empty, everything from the claim is made available, otherwise\nonly the result of this request."
+
+## obj spec.serviceSpec
+
+"ServiceSpec that will be added to vlagent service spec"
+
+### fn spec.serviceSpec.withSpec
+
+```ts
+withSpec(spec)
+```
+
+"ServiceSpec describes the attributes that a user creates on a service.\nMore info: https://kubernetes.io/docs/concepts/services-networking/service/"
+
+### fn spec.serviceSpec.withSpecMixin
+
+```ts
+withSpecMixin(spec)
+```
+
+"ServiceSpec describes the attributes that a user creates on a service.\nMore info: https://kubernetes.io/docs/concepts/services-networking/service/"
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.serviceSpec.withUseAsDefault
+
+```ts
+withUseAsDefault(useAsDefault)
+```
+
+"UseAsDefault applies changes from given service definition to the main object Service\nChanging from headless service to clusterIP or loadbalancer may break cross-component communication"
+
+## obj spec.serviceSpec.metadata
+
+"EmbeddedObjectMetadata defines objectMeta for additional service."
+
+### fn spec.serviceSpec.metadata.withAnnotations
+
+```ts
+withAnnotations(annotations)
+```
+
+"Annotations is an unstructured key value map stored with a resource that may be\nset by external tools to store and retrieve arbitrary metadata. They are not\nqueryable and should be preserved when modifying objects.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations"
+
+### fn spec.serviceSpec.metadata.withAnnotationsMixin
+
+```ts
+withAnnotationsMixin(annotations)
+```
+
+"Annotations is an unstructured key value map stored with a resource that may be\nset by external tools to store and retrieve arbitrary metadata. They are not\nqueryable and should be preserved when modifying objects.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations"
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.serviceSpec.metadata.withLabels
+
+```ts
+withLabels(labels)
+```
+
+"Labels Map of string keys and values that can be used to organize and categorize\n(scope and select) objects. May match selectors of replication controllers\nand services.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels"
+
+### fn spec.serviceSpec.metadata.withLabelsMixin
+
+```ts
+withLabelsMixin(labels)
+```
+
+"Labels Map of string keys and values that can be used to organize and categorize\n(scope and select) objects. May match selectors of replication controllers\nand services.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels"
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.serviceSpec.metadata.withName
+
+```ts
+withName(name)
+```
+
+"Name must be unique within a namespace. Is required when creating resources, although\nsome resources may allow a client to request the generation of an appropriate name\nautomatically. Name is primarily intended for creation idempotence and configuration\ndefinition.\nCannot be updated.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names"
+
+## obj spec.storage
+
+"StatefulStorage configures storage for StatefulSet"
+
+### fn spec.storage.withDisableMountSubPath
+
+```ts
+withDisableMountSubPath(disableMountSubPath)
+```
+
+"Deprecated: subPath usage will be disabled by default in a future release, this option will become unnecessary.\nDisableMountSubPath allows to remove any subPath usage in volume mounts."
+
+## obj spec.storage.emptyDir
+
+"EmptyDirVolumeSource to be used by the Prometheus StatefulSets. If specified, used in place of any volumeClaimTemplate. More\ninfo: https://kubernetes.io/docs/concepts/storage/volumes/#emptydir"
+
+### fn spec.storage.emptyDir.withMedium
+
+```ts
+withMedium(medium)
+```
+
+"medium represents what type of storage medium should back this directory.\nThe default is \"\" which means to use the node's default medium.\nMust be an empty string (default) or Memory.\nMore info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir"
+
+### fn spec.storage.emptyDir.withSizeLimit
+
+```ts
+withSizeLimit(sizeLimit)
+```
+
+"sizeLimit is the total amount of local storage required for this EmptyDir volume.\nThe size limit is also applicable for memory medium.\nThe maximum usage on memory medium EmptyDir would be the minimum value between\nthe SizeLimit specified here and the sum of memory limits of all containers in a pod.\nThe default is nil which means that the limit is undefined.\nMore info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir"
+
+## obj spec.storage.volumeClaimTemplate
+
+"A PVC spec to be used by the StatefulSets/Deployments."
+
+### fn spec.storage.volumeClaimTemplate.withApiVersion
+
+```ts
+withApiVersion(apiVersion)
+```
+
+"APIVersion defines the versioned schema of this representation of an object.\nServers should convert recognized schemas to the latest internal value, and\nmay reject unrecognized values.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources"
+
+### fn spec.storage.volumeClaimTemplate.withKind
+
+```ts
+withKind(kind)
+```
+
+"Kind is a string value representing the REST resource this object represents.\nServers may infer this from the endpoint the client submits requests to.\nCannot be updated.\nIn CamelCase.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+
+## obj spec.storage.volumeClaimTemplate.metadata
+
+"EmbeddedMetadata contains metadata relevant to an EmbeddedResource."
+
+### fn spec.storage.volumeClaimTemplate.metadata.withAnnotations
+
+```ts
+withAnnotations(annotations)
+```
+
+"Annotations is an unstructured key value map stored with a resource that may be\nset by external tools to store and retrieve arbitrary metadata. They are not\nqueryable and should be preserved when modifying objects.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations"
+
+### fn spec.storage.volumeClaimTemplate.metadata.withAnnotationsMixin
+
+```ts
+withAnnotationsMixin(annotations)
+```
+
+"Annotations is an unstructured key value map stored with a resource that may be\nset by external tools to store and retrieve arbitrary metadata. They are not\nqueryable and should be preserved when modifying objects.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations"
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.storage.volumeClaimTemplate.metadata.withLabels
+
+```ts
+withLabels(labels)
+```
+
+"Labels Map of string keys and values that can be used to organize and categorize\n(scope and select) objects. May match selectors of replication controllers\nand services.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels"
+
+### fn spec.storage.volumeClaimTemplate.metadata.withLabelsMixin
+
+```ts
+withLabelsMixin(labels)
+```
+
+"Labels Map of string keys and values that can be used to organize and categorize\n(scope and select) objects. May match selectors of replication controllers\nand services.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels"
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.storage.volumeClaimTemplate.metadata.withName
+
+```ts
+withName(name)
+```
+
+"Name must be unique within a namespace. Is required when creating resources, although\nsome resources may allow a client to request the generation of an appropriate name\nautomatically. Name is primarily intended for creation idempotence and configuration\ndefinition.\nCannot be updated.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names"
+
+## obj spec.storage.volumeClaimTemplate.spec
+
+"Spec defines the desired characteristics of a volume requested by a pod author.\nMore info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims"
+
+### fn spec.storage.volumeClaimTemplate.spec.withAccessModes
+
+```ts
+withAccessModes(accessModes)
+```
+
+"accessModes contains the desired access modes the volume should have.\nMore info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1"
+
+### fn spec.storage.volumeClaimTemplate.spec.withAccessModesMixin
+
+```ts
+withAccessModesMixin(accessModes)
+```
+
+"accessModes contains the desired access modes the volume should have.\nMore info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1"
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.storage.volumeClaimTemplate.spec.withStorageClassName
+
+```ts
+withStorageClassName(storageClassName)
+```
+
+"storageClassName is the name of the StorageClass required by the claim.\nMore info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1"
+
+### fn spec.storage.volumeClaimTemplate.spec.withVolumeAttributesClassName
+
+```ts
+withVolumeAttributesClassName(volumeAttributesClassName)
+```
+
+"volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim.\nIf specified, the CSI driver will create or update the volume with the attributes defined\nin the corresponding VolumeAttributesClass. This has a different purpose than storageClassName,\nit can be changed after the claim is created. An empty string value means that no VolumeAttributesClass\nwill be applied to the claim but it's not allowed to reset this field to empty string once it is set.\nIf unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass\nwill be set by the persistentvolume controller if it exists.\nIf the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be\nset to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource\nexists.\nMore info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/\n(Beta) Using this field requires the VolumeAttributesClass feature gate to be enabled (off by default)."
+
+### fn spec.storage.volumeClaimTemplate.spec.withVolumeMode
+
+```ts
+withVolumeMode(volumeMode)
+```
+
+"volumeMode defines what type of volume is required by the claim.\nValue of Filesystem is implied when not included in claim spec."
+
+### fn spec.storage.volumeClaimTemplate.spec.withVolumeName
+
+```ts
+withVolumeName(volumeName)
+```
+
+"volumeName is the binding reference to the PersistentVolume backing this claim."
+
+## obj spec.storage.volumeClaimTemplate.spec.dataSource
+
+"dataSource field can be used to specify either:\n* An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot)\n* An existing PVC (PersistentVolumeClaim)\nIf the provisioner or an external controller can support the specified data source,\nit will create a new volume based on the contents of the specified data source.\nWhen the AnyVolumeDataSource feature gate is enabled, dataSource contents will be copied to dataSourceRef,\nand dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified.\nIf the namespace is specified, then dataSourceRef will not be copied to dataSource."
+
+### fn spec.storage.volumeClaimTemplate.spec.dataSource.withApiGroup
+
+```ts
+withApiGroup(apiGroup)
+```
+
+"APIGroup is the group for the resource being referenced.\nIf APIGroup is not specified, the specified Kind must be in the core API group.\nFor any other third-party types, APIGroup is required."
+
+### fn spec.storage.volumeClaimTemplate.spec.dataSource.withKind
+
+```ts
+withKind(kind)
+```
+
+"Kind is the type of resource being referenced"
+
+### fn spec.storage.volumeClaimTemplate.spec.dataSource.withName
+
+```ts
+withName(name)
+```
+
+"Name is the name of resource being referenced"
+
+## obj spec.storage.volumeClaimTemplate.spec.dataSourceRef
+
+"dataSourceRef specifies the object from which to populate the volume with data, if a non-empty\nvolume is desired. This may be any object from a non-empty API group (non\ncore object) or a PersistentVolumeClaim object.\nWhen this field is specified, volume binding will only succeed if the type of\nthe specified object matches some installed volume populator or dynamic\nprovisioner.\nThis field will replace the functionality of the dataSource field and as such\nif both fields are non-empty, they must have the same value. For backwards\ncompatibility, when namespace isn't specified in dataSourceRef,\nboth fields (dataSource and dataSourceRef) will be set to the same\nvalue automatically if one of them is empty and the other is non-empty.\nWhen namespace is specified in dataSourceRef,\ndataSource isn't set to the same value and must be empty.\nThere are three important differences between dataSource and dataSourceRef:\n* While dataSource only allows two specific types of objects, dataSourceRef\n  allows any non-core object, as well as PersistentVolumeClaim objects.\n* While dataSource ignores disallowed values (dropping them), dataSourceRef\n  preserves all values, and generates an error if a disallowed value is\n  specified.\n* While dataSource only allows local objects, dataSourceRef allows objects\n  in any namespaces.\n(Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled.\n(Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled."
+
+### fn spec.storage.volumeClaimTemplate.spec.dataSourceRef.withApiGroup
+
+```ts
+withApiGroup(apiGroup)
+```
+
+"APIGroup is the group for the resource being referenced.\nIf APIGroup is not specified, the specified Kind must be in the core API group.\nFor any other third-party types, APIGroup is required."
+
+### fn spec.storage.volumeClaimTemplate.spec.dataSourceRef.withKind
+
+```ts
+withKind(kind)
+```
+
+"Kind is the type of resource being referenced"
+
+### fn spec.storage.volumeClaimTemplate.spec.dataSourceRef.withName
+
+```ts
+withName(name)
+```
+
+"Name is the name of resource being referenced"
+
+### fn spec.storage.volumeClaimTemplate.spec.dataSourceRef.withNamespace
+
+```ts
+withNamespace(namespace)
+```
+
+"Namespace is the namespace of resource being referenced\nNote that when a namespace is specified, a gateway.networking.k8s.io/ReferenceGrant object is required in the referent namespace to allow that namespace's owner to accept the reference. See the ReferenceGrant documentation for details.\n(Alpha) This field requires the CrossNamespaceVolumeDataSource feature gate to be enabled."
+
+## obj spec.storage.volumeClaimTemplate.spec.resources
+
+"resources represents the minimum resources the volume should have.\nIf RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements\nthat are lower than previous value but must still be higher than capacity recorded in the\nstatus field of the claim.\nMore info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources"
+
+### fn spec.storage.volumeClaimTemplate.spec.resources.withLimits
+
+```ts
+withLimits(limits)
+```
+
+"Limits describes the maximum amount of compute resources allowed.\nMore info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/"
+
+### fn spec.storage.volumeClaimTemplate.spec.resources.withLimitsMixin
+
+```ts
+withLimitsMixin(limits)
+```
+
+"Limits describes the maximum amount of compute resources allowed.\nMore info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/"
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.storage.volumeClaimTemplate.spec.resources.withRequests
+
+```ts
+withRequests(requests)
+```
+
+"Requests describes the minimum amount of compute resources required.\nIf Requests is omitted for a container, it defaults to Limits if that is explicitly specified,\notherwise to an implementation-defined value. Requests cannot exceed Limits.\nMore info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/"
+
+### fn spec.storage.volumeClaimTemplate.spec.resources.withRequestsMixin
+
+```ts
+withRequestsMixin(requests)
+```
+
+"Requests describes the minimum amount of compute resources required.\nIf Requests is omitted for a container, it defaults to Limits if that is explicitly specified,\notherwise to an implementation-defined value. Requests cannot exceed Limits.\nMore info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/"
+
+**Note:** This function appends passed data to existing values
+
+## obj spec.storage.volumeClaimTemplate.spec.selector
+
+"selector is a label query over volumes to consider for binding."
+
+### fn spec.storage.volumeClaimTemplate.spec.selector.withMatchExpressions
+
+```ts
+withMatchExpressions(matchExpressions)
+```
+
+"matchExpressions is a list of label selector requirements. The requirements are ANDed."
+
+### fn spec.storage.volumeClaimTemplate.spec.selector.withMatchExpressionsMixin
+
+```ts
+withMatchExpressionsMixin(matchExpressions)
+```
+
+"matchExpressions is a list of label selector requirements. The requirements are ANDed."
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.storage.volumeClaimTemplate.spec.selector.withMatchLabels
+
+```ts
+withMatchLabels(matchLabels)
+```
+
+"matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels\nmap is equivalent to an element of matchExpressions, whose key field is \"key\", the\noperator is \"In\", and the values array contains only \"value\". The requirements are ANDed."
+
+### fn spec.storage.volumeClaimTemplate.spec.selector.withMatchLabelsMixin
+
+```ts
+withMatchLabelsMixin(matchLabels)
+```
+
+"matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels\nmap is equivalent to an element of matchExpressions, whose key field is \"key\", the\noperator is \"In\", and the values array contains only \"value\". The requirements are ANDed."
+
+**Note:** This function appends passed data to existing values
+
+## obj spec.storage.volumeClaimTemplate.spec.selector.matchExpressions
+
+"matchExpressions is a list of label selector requirements. The requirements are ANDed."
+
+### fn spec.storage.volumeClaimTemplate.spec.selector.matchExpressions.withKey
+
+```ts
+withKey(key)
+```
+
+"key is the label key that the selector applies to."
+
+### fn spec.storage.volumeClaimTemplate.spec.selector.matchExpressions.withOperator
+
+```ts
+withOperator(operator)
+```
+
+"operator represents a key's relationship to a set of values.\nValid operators are In, NotIn, Exists and DoesNotExist."
+
+### fn spec.storage.volumeClaimTemplate.spec.selector.matchExpressions.withValues
+
+```ts
+withValues(values)
+```
+
+"values is an array of string values. If the operator is In or NotIn,\nthe values array must be non-empty. If the operator is Exists or DoesNotExist,\nthe values array must be empty. This array is replaced during a strategic\nmerge patch."
+
+### fn spec.storage.volumeClaimTemplate.spec.selector.matchExpressions.withValuesMixin
+
+```ts
+withValuesMixin(values)
+```
+
+"values is an array of string values. If the operator is In or NotIn,\nthe values array must be non-empty. If the operator is Exists or DoesNotExist,\nthe values array must be empty. This array is replaced during a strategic\nmerge patch."
+
+**Note:** This function appends passed data to existing values
+
+## obj spec.syslogSpec
+
+"SyslogSpec defines syslog listener configuration"
+
+### fn spec.syslogSpec.withTcpListeners
+
+```ts
+withTcpListeners(tcpListeners)
+```
+
+"TCPListeners defines syslog server TCP listener configuration"
+
+### fn spec.syslogSpec.withTcpListenersMixin
+
+```ts
+withTcpListenersMixin(tcpListeners)
+```
+
+"TCPListeners defines syslog server TCP listener configuration"
+
+**Note:** This function appends passed data to existing values
+
+### fn spec.syslogSpec.withUdpListeners
+
+```ts
+withUdpListeners(udpListeners)
+```
+
+"UDPListeners defines syslog server UDP listener configuration"
+
+### fn spec.syslogSpec.withUdpListenersMixin
+
+```ts
+withUdpListenersMixin(udpListeners)
+```
+
+"UDPListeners defines syslog server UDP listener configuration"
+
+**Note:** This function appends passed data to existing values
+
+## obj spec.syslogSpec.tcpListeners
+
+"TCPListeners defines syslog server TCP listener configuration"
+
+### fn spec.syslogSpec.tcpListeners.withCompressMethod
+
+```ts
+withCompressMethod(compressMethod)
+```
+
+"CompressMethod for syslog messages\nsee https://docs.victoriametrics.com/victorialogs/data-ingestion/syslog/#compression"
+
+### fn spec.syslogSpec.tcpListeners.withDecolorizeFields
+
+```ts
+withDecolorizeFields(decolorizeFields)
+```
+
+"DecolorizeFields to remove ANSI color codes across logs\nsee https://docs.victoriametrics.com/victorialogs/data-ingestion/syslog/#decolorizing-fields"
+
+### fn spec.syslogSpec.tcpListeners.withIgnoreFields
+
+```ts
+withIgnoreFields(ignoreFields)
+```
+
+"IgnoreFields to ignore at logs\nsee https://docs.victoriametrics.com/victorialogs/data-ingestion/syslog/#dropping-fields"
+
+### fn spec.syslogSpec.tcpListeners.withListenPort
+
+```ts
+withListenPort(listenPort)
+```
+
+"ListenPort defines listen port"
+
+### fn spec.syslogSpec.tcpListeners.withStreamFields
+
+```ts
+withStreamFields(streamFields)
+```
+
+"StreamFields to use as log stream labels\nsee https://docs.victoriametrics.com/victorialogs/data-ingestion/syslog/#stream-fields"
+
+### fn spec.syslogSpec.tcpListeners.withTenantID
+
+```ts
+withTenantID(tenantID)
+```
+
+"TenantID for logs ingested in form of accountID:projectID\nsee https://docs.victoriametrics.com/victorialogs/data-ingestion/syslog/#multiple-configs"
+
+## obj spec.syslogSpec.tcpListeners.tlsConfig
+
+"TLSServerConfig defines VictoriaMetrics TLS configuration for the application's server"
+
+### fn spec.syslogSpec.tcpListeners.tlsConfig.withCertFile
+
+```ts
+withCertFile(certFile)
+```
+
+"CertFile defines path to the pre-mounted file with certificate\nmutually exclusive with CertSecret"
+
+### fn spec.syslogSpec.tcpListeners.tlsConfig.withKeyFile
+
+```ts
+withKeyFile(keyFile)
+```
+
+"KeyFile defines path to the pre-mounted file with certificate key\nmutually exclusive with KeySecretRef"
+
+## obj spec.syslogSpec.tcpListeners.tlsConfig.certSecret
+
+"CertSecretRef defines reference for secret with certificate content under given key\nmutually exclusive with CertFile"
+
+### fn spec.syslogSpec.tcpListeners.tlsConfig.certSecret.withKey
+
+```ts
+withKey(key)
+```
+
+"The key of the secret to select from.  Must be a valid secret key."
+
+### fn spec.syslogSpec.tcpListeners.tlsConfig.certSecret.withName
+
+```ts
+withName(name)
+```
+
+"Name of the referent.\nThis field is effectively required, but due to backwards compatibility is\nallowed to be empty. Instances of this type with an empty value here are\nalmost certainly wrong.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+
+### fn spec.syslogSpec.tcpListeners.tlsConfig.certSecret.withOptional
+
+```ts
+withOptional(optional)
+```
+
+"Specify whether the Secret or its key must be defined"
+
+## obj spec.syslogSpec.tcpListeners.tlsConfig.keySecret
+
+"Key defines reference for secret with certificate key content under given key\nmutually exclusive with KeyFile"
+
+### fn spec.syslogSpec.tcpListeners.tlsConfig.keySecret.withKey
+
+```ts
+withKey(key)
+```
+
+"The key of the secret to select from.  Must be a valid secret key."
+
+### fn spec.syslogSpec.tcpListeners.tlsConfig.keySecret.withName
+
+```ts
+withName(name)
+```
+
+"Name of the referent.\nThis field is effectively required, but due to backwards compatibility is\nallowed to be empty. Instances of this type with an empty value here are\nalmost certainly wrong.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+
+### fn spec.syslogSpec.tcpListeners.tlsConfig.keySecret.withOptional
+
+```ts
+withOptional(optional)
+```
+
+"Specify whether the Secret or its key must be defined"
+
+## obj spec.syslogSpec.udpListeners
+
+"UDPListeners defines syslog server UDP listener configuration"
+
+### fn spec.syslogSpec.udpListeners.withCompressMethod
+
+```ts
+withCompressMethod(compressMethod)
+```
+
+"CompressMethod for syslog messages\nsee https://docs.victoriametrics.com/victorialogs/data-ingestion/syslog/#compression"
+
+### fn spec.syslogSpec.udpListeners.withDecolorizeFields
+
+```ts
+withDecolorizeFields(decolorizeFields)
+```
+
+"DecolorizeFields to remove ANSI color codes across logs\nsee https://docs.victoriametrics.com/victorialogs/data-ingestion/syslog/#decolorizing-fields"
+
+### fn spec.syslogSpec.udpListeners.withIgnoreFields
+
+```ts
+withIgnoreFields(ignoreFields)
+```
+
+"IgnoreFields to ignore at logs\nsee https://docs.victoriametrics.com/victorialogs/data-ingestion/syslog/#dropping-fields"
+
+### fn spec.syslogSpec.udpListeners.withListenPort
+
+```ts
+withListenPort(listenPort)
+```
+
+"ListenPort defines listen port"
+
+### fn spec.syslogSpec.udpListeners.withStreamFields
+
+```ts
+withStreamFields(streamFields)
+```
+
+"StreamFields to use as log stream labels\nsee https://docs.victoriametrics.com/victorialogs/data-ingestion/syslog/#stream-fields"
+
+### fn spec.syslogSpec.udpListeners.withTenantID
+
+```ts
+withTenantID(tenantID)
+```
+
+"TenantID for logs ingested in form of accountID:projectID\nsee https://docs.victoriametrics.com/victorialogs/data-ingestion/syslog/#multiple-configs"
+
+## obj spec.tolerations
+
+"Tolerations If specified, the pod's tolerations."
+
+### fn spec.tolerations.withEffect
+
+```ts
+withEffect(effect)
+```
+
+"Effect indicates the taint effect to match. Empty means match all taint effects.\nWhen specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute."
+
+### fn spec.tolerations.withKey
+
+```ts
+withKey(key)
+```
+
+"Key is the taint key that the toleration applies to. Empty means match all taint keys.\nIf the key is empty, operator must be Exists; this combination means to match all values and all keys."
+
+### fn spec.tolerations.withOperator
+
+```ts
+withOperator(operator)
+```
+
+"Operator represents a key's relationship to the value.\nValid operators are Exists and Equal. Defaults to Equal.\nExists is equivalent to wildcard for value, so that a pod can\ntolerate all taints of a particular category."
+
+### fn spec.tolerations.withTolerationSeconds
+
+```ts
+withTolerationSeconds(tolerationSeconds)
+```
+
+"TolerationSeconds represents the period of time the toleration (which must be\nof effect NoExecute, otherwise this field is ignored) tolerates the taint. By default,\nit is not set, which means tolerate the taint forever (do not evict). Zero and\nnegative values will be treated as 0 (evict immediately) by the system."
+
+### fn spec.tolerations.withValue
+
+```ts
+withValue(value)
+```
+
+"Value is the taint value the toleration matches to.\nIf the operator is Exists, the value should be empty, otherwise just a regular string."
+
+## obj spec.volumeMounts
+
+"VolumeMounts allows configuration of additional VolumeMounts on the output Deployment/StatefulSet definition.\nVolumeMounts specified will be appended to other VolumeMounts in the Application container"
+
+### fn spec.volumeMounts.withMountPath
+
+```ts
+withMountPath(mountPath)
+```
+
+"Path within the container at which the volume should be mounted.  Must\nnot contain ':'."
+
+### fn spec.volumeMounts.withMountPropagation
+
+```ts
+withMountPropagation(mountPropagation)
+```
+
+"mountPropagation determines how mounts are propagated from the host\nto container and the other way around.\nWhen not set, MountPropagationNone is used.\nThis field is beta in 1.10.\nWhen RecursiveReadOnly is set to IfPossible or to Enabled, MountPropagation must be None or unspecified\n(which defaults to None)."
+
+### fn spec.volumeMounts.withName
+
+```ts
+withName(name)
+```
+
+"This must match the Name of a Volume."
+
+### fn spec.volumeMounts.withReadOnly
+
+```ts
+withReadOnly(readOnly)
+```
+
+"Mounted read-only if true, read-write otherwise (false or unspecified).\nDefaults to false."
+
+### fn spec.volumeMounts.withRecursiveReadOnly
+
+```ts
+withRecursiveReadOnly(recursiveReadOnly)
+```
+
+"RecursiveReadOnly specifies whether read-only mounts should be handled\nrecursively.\n\nIf ReadOnly is false, this field has no meaning and must be unspecified.\n\nIf ReadOnly is true, and this field is set to Disabled, the mount is not made\nrecursively read-only.  If this field is set to IfPossible, the mount is made\nrecursively read-only, if it is supported by the container runtime.  If this\nfield is set to Enabled, the mount is made recursively read-only if it is\nsupported by the container runtime, otherwise the pod will not be started and\nan error will be generated to indicate the reason.\n\nIf this field is set to IfPossible or Enabled, MountPropagation must be set to\nNone (or be unspecified, which defaults to None).\n\nIf this field is not specified, it is treated as an equivalent of Disabled."
+
+### fn spec.volumeMounts.withSubPath
+
+```ts
+withSubPath(subPath)
+```
+
+"Path within the volume from which the container's volume should be mounted.\nDefaults to \"\" (volume's root)."
+
+### fn spec.volumeMounts.withSubPathExpr
+
+```ts
+withSubPathExpr(subPathExpr)
+```
+
+"Expanded path within the volume from which the container's volume should be mounted.\nBehaves similarly to SubPath but environment variable references $(VAR_NAME) are expanded using the container's environment.\nDefaults to \"\" (volume's root).\nSubPathExpr and SubPath are mutually exclusive."
